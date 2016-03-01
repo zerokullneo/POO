@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Workspace Name="POO" Database="">
-  <Project Name="Polinomio" Path="Polinomio/Polinomio.project" Active="Yes"/>
+  <Project Name="Polinomio" Path="Polinomio/Polinomio.project" Active="No"/>
+  <Project Name="fexterna" Path="fexterna/fexterna.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
       <Project Name="Polinomio" ConfigName="Debug"/>
+      <Project Name="fexterna" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
       <Project Name="Polinomio" ConfigName="Release"/>
+      <Project Name="fexterna" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
