@@ -23,10 +23,23 @@ Polinomio Polinomio::operator =(Polinomio& pol)
 
 Polinomio Polinomio::operator +=(Polinomio& pol)
 {cout << "operador +=" << endl;
-	nat i;
+	nat i,gr = this->grado_;
+
+	if(pol.ver_grado() > this->grado_)
+		gr = pol.ver_grado();
+
 	Polinomio::Monomios::iterator it, itt;
-	for(i = 0, it = m_.begin(), itt = pol.m_.begin(); i < grado_; itt++, it++, i++)
-		m_[i]=(*it).second + (*itt).second;
+	for(i = 0, it = this->m_.begin(), itt = pol.m_.begin(); i < gr; itt++, it++, i++)
+	{
+		if(this->m_.find(i) == this->m_.end())
+		{
+			this->m_.insert(make_pair(i,(*itt).second));
+			this->grado_++;
+		}
+
+		this->m_[i]=(*it).second + (*itt).second;
+	}
+
 	return *this;
 }
 

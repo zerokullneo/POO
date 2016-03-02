@@ -32,13 +32,13 @@
 
 int main(int argc, char **argv)
 {
-	Polinomio::nat g = 3, i;
+	Polinomio::nat g = 3, h = 4, i;
 	Polinomio P1(g);
-	Polinomio P2(g);
+	Polinomio P2(h);
 
 	Polinomio::Monomios::iterator it;
 
-	for(i = 0, it = P1.ver_polinomio().begin(); i < P1.ver_grado(); it++, i++)
+	for(i = 0, it = P2.ver_polinomio().begin(); i < P2.ver_grado(); it++, i++)
 		cout << i << "-" << (*it).second << "x^" << (*it).first << endl;
 
 	P1 += P2;
@@ -47,6 +47,6 @@ int main(int argc, char **argv)
 	for(i = 0, it = P1.ver_polinomio().begin(); i < P1.ver_grado(); it++, i++)
 		cout << i << "-" << (*it).second << "x^" << (*it).first << endl;
 
-	cout << "hello world" << endl;
+	cout << "FIN" << endl;
 	return 0;
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Session Name="/home/zerokullneo/github/codelite/POO/POO.workspace">
+  <int Value="2" Name="m_selectedTab"/>
+  <wxString Value="/home/zerokullneo/github/codelite/POO/POO.workspace" Name="m_workspaceName"/>
+  <TabInfoArray Name="TabInfoArray">
+    <TabInfo>
+      <wxString Value="/home/zerokullneo/github/codelite/POO/Polinomio/main.cpp" Name="FileName"/>
+      <int Value="33" Name="FirstVisibleLine"/>
+      <int Value="49" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/home/zerokullneo/github/codelite/POO/Polinomio/Polinomio.hpp" Name="FileName"/>
+      <int Value="12" Name="FirstVisibleLine"/>
+      <int Value="25" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/home/zerokullneo/github/codelite/POO/Polinomio/Polinomio.cpp" Name="FileName"/>
+      <int Value="21" Name="FirstVisibleLine"/>
+      <int Value="23" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+  </TabInfoArray>
+  <SerializedObject Name="m_breakpoints">
+    <long Value="0" Name="Count"/>
+  </SerializedObject>
+</Session>

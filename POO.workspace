@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Workspace Name="POO" Database="">
-  <Project Name="Polinomio" Path="Polinomio/Polinomio.project" Active="No"/>
-  <Project Name="fexterna" Path="fexterna/fexterna.project" Active="Yes"/>
+  <Project Name="Polinomio" Path="Polinomio/Polinomio.project" Active="Yes"/>
+  <Project Name="fexterna" Path="fexterna/fexterna.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
