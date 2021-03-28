@@ -30,14 +30,17 @@ int Pedido::N_pedidos = 0;
 
 Pedido::Pedido(Usuario_Pedido& U_P, Pedido_Articulo& P_A, Usuario& U, const Tarjeta& T,const Fecha& F):num_(N_pedidos+1),total_(0.0),tarjeta_(&T),fecha_pedido_(F)
 {
-    if(U.compra().empty())
-        throw(Vacio(U));
+	if(U.compra().empty())
+		throw(Vacio(U));
 
-    if(tarjeta_->titular() != &U)
-        throw Impostor(U);
+	if(tarjeta_->titular() != &U)
+		throw Impostor(U);
 
-    if(tarjeta_->caducidad() < fecha_pedido_)
-        throw Tarjeta::Caducada(tarjeta_->caducidad());
+	if(tarjeta_->caducidad() < fecha_pedido_)
+		throw Tarjeta::Caducada(tarjeta_->caducidad());
+
+	if(tarjeta_->activa() == false)
+		throw Tarjeta::Desactivada();
 
     Usuario::Tarjetas t(U.tarjetas());
 
@@ -102,11 +105,17 @@ Pedido::Pedido(Usuario_Pedido& U_P, Pedido_Articulo& P_A, Usuario& U, const Tarj
     ++N_pedidos;
 }
 
+/*Inserccion en flujo*/
 ostream& operator <<(ostream& out,const Pedido& P)
 {
-    out << "Núm. pedido:\t" << P.numero() << endl;
-    out << "Fecha:\t"<< P.fecha().cadena() << endl;
-    out << "Pagado con:\t" << P.tarjeta()->tarjeta() << endl;
-    out << "Importe:\t" << P.total() << " €";
-    return out;
+	out << "Núm. pedido: " << P.numero() << endl;
+	out << "Fecha: "<< P.fecha().cadena() << endl;
+
+	if(P.tarjeta()->tipo() == Tarjeta::Otro)
+		out << "Pagado con: Tipo indeterminado";
+	else
+		out << "Pagado con: " << P.tarjeta()->tipo();
+
+	out << " n.º: " << P.tarjeta()->numero() << endl << "Importe: " << P.total() << " €" << endl;
+	return out;
 }

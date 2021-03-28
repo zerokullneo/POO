@@ -329,32 +329,43 @@ Cadena::const_reverse_iterator Cadena::crend() const noexcept
 /*FIN OPERACIONES SOBRE ITERADORES*/
 
 /*OPERADORES DE FLUJO*/
+/** Inserccion */
 ostream& operator <<(ostream& out,const Cadena& texto)
 {
 	out << texto.c_str();
 	return out;
 }
 
-//Extraccion
+/** Extraccion */
 istream& operator >>(istream& in, Cadena& texto)
 {
-cerr << endl << texto.Cad() << endl;
 	//calcular la longitud del stream "in"
 	in.seekg(0, in.end);
 	int length = in.tellg();
 	in.seekg(0, in.beg);
-
+	
 	// alojar memoria de "in":
-	char *buffer = new char [length+1];
-	buffer[length]='\0';
+	char *buffer = new char [length + 1];
+	buffer[length + 1] = '\0';
 
 	// leer datos como un bloque:
 	while(in.get() == ' ') in.peek();//Se salta los espacios iniciales.
 	in.seekg(-1, in.cur);//Coloca el puntero de "in" en el primer caracter a leer despues de saltar los espacios.
-	in.getline(buffer, length + 1, ' ');//lee la entrada hasta el siguiente espacio
-	in.putback(' ');//deja el puntero de "in" en el espacio
+	if(length > 32)
+	{
+		in.get(buffer, 33);//lee la entrada hasta el siguiente espacio
+		//in.seekg(0, in.cur);
+		//char car = in.peek();
+		//cout << "@@" << car << "@@";
+		//in.peek();
+	}
+	else
+	{
+		in.getline(buffer, length + 1, ' ');//lee la entrada hasta el siguiente espacio
+		in.putback(' ');//deja el puntero de "in" en el espacio
+	}
 
-cerr << endl << buffer << endl;
+//cerr << endl << "#: " << buffer << endl;
 
 	if(strspn(buffer, " \t\r\n\v") > 0)// or buffer == '\0')
 	{
@@ -364,7 +375,7 @@ cerr << endl << buffer << endl;
 	}
 	else
 	{
-		texto=buffer;
+		texto = buffer;
 		return in;
 	}
 }

@@ -38,12 +38,13 @@ void Usuario_Pedido::asocia(Pedido& p, Usuario& u)
 	asocia(u,p);
 }
 
-Usuario_Pedido::Pedidos Usuario_Pedido::pedidos(Usuario& u)
+/*Observadores*/
+const Usuario_Pedido::Pedidos Usuario_Pedido::pedidos(Usuario& u)
 {
 	return Usuario_Pedidos_[&u];
 }
 
-Usuario* Usuario_Pedido::cliente(Pedido& p)
+const Usuario* Usuario_Pedido::cliente(Pedido& p)
 {
 	return Pedido_Usuario_[&p];
 }

@@ -21,6 +21,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+/*#include <unicode/unistr.h>
+#include <unicode/ustream.h>
+#include <unicode/locid.h>*/
 #include "tarjeta.hpp"
 #include "usuario.hpp"
 
@@ -156,10 +159,17 @@ bool operator ==(const Tarjeta& t1, const Tarjeta& t2)
 
 ostream& operator <<(ostream& out, const Tarjeta& tjt)
 {
-    out << tjt.tarjeta() << endl;
-    out << tjt.titular_facial()<<endl;
-    out << "Caduca: " << setw(2) << setfill('0') << tjt.caducidad().mes() << "/" << ((tjt.caducidad().anno())%100);
-    return out;
+	Cadena nom_{tjt.titular()->nombre()};
+	//out << transform(tjt.titular()->nombre().begin(), tjt.titular()->nombre().end(), nom_.begin(), [](unsigned char c){ return toupper(c); });
+	transform(nom_.begin(), nom_.end(), nom_.begin(), ::toupper);
+	Cadena ape_{ tjt.titular()->apellidos()};
+	transform(ape_.begin(), ape_.end(), ape_.begin(), ::toupper);
+	
+	out << tjt.tipo() << endl << tjt.numero() << endl;
+	out << nom_ << " " << ape_ << endl;
+	out << "Caduca: " << setw(2) << setfill('0') << tjt.caducidad().mes() << "/" << setw(2) << ((tjt.caducidad().anno()) % 100) << endl;
+
+	return out;
 }
 
 ostream& operator <<(ostream& out, const Tarjeta::Tipo& tipo)

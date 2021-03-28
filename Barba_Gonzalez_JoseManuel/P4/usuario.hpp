@@ -27,6 +27,7 @@
 #ifndef USUARIO_H
 #define USUARIO_H
 
+#include <random>
 #include <set>
 #include <map>
 #include "cadena.hpp"
@@ -58,7 +59,7 @@ class Clave
         //constructor
         Clave(const char* clav);
         //método observador
-        Cadena clave()const{return clave_;}
+        const Cadena clave() const {return clave_;}
         //método verificador
         bool verifica(const char* pass) const noexcept;
 
@@ -95,11 +96,11 @@ class Usuario
         Usuario& operator =(const Usuario&)=delete;
 
         //Métodos observadores de los atributos.
-        Cadena id()const {return identificador_;}
-        Cadena nombre()const {return nombre_;}
-        Cadena apellidos()const {return apellidos_;}
-        Cadena direccion()const {return direccion_;}
-        Clave clave()const {return contrasenia_;}
+        const Cadena id()const {return identificador_;}
+        const Cadena nombre()const {return nombre_;}
+        const Cadena apellidos()const {return apellidos_;}
+        const Cadena direccion()const {return direccion_;}
+        const Clave clave()const {return contrasenia_;}
         size_t n_articulos()const{return articulos_.size();}
         const Tarjetas& tarjetas()const{return tarjetas_;}
         const Articulos& compra()const{return articulos_;}
