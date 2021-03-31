@@ -1,14 +1,14 @@
 /***************************************************************************
 * fecha.h
 *
-* lun marzo 16 17:53:48 2015
-* Copyright 2015 Jose M Barba Gonzalez
+* lun marzo 16 17:53:48 2021
+* Copyright 2021 Jose M Barba Gonzalez
 * <user@host>
 ****************************************************************************/
 /*
 * fecha.h
 *
-* Copyright (C) 2015 - Jose M Barba Gonzalez
+* Copyright (C) 2021 - Jose M Barba Gonzalez
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 *
 * You should have received a copy of the GNU General Public License
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
-* #include "../../cabeceras.h"
 */
 
 #include "cadena.hpp"
@@ -35,9 +34,9 @@
 class Fecha
 {
 	public:
-	    //Limites de fecha
-        static const int AnnoMaximo = 2037;
-        static const int AnnoMinimo = 1902;
+		//Limites de fecha
+		static const int AnnoMaximo = 2037;
+		static const int AnnoMinimo = 1902;
 
 		//Constructor de enteros con los 3 parámetros.
 		explicit Fecha(int dia=0, int mes=0, int year=0);
@@ -51,7 +50,8 @@ class Fecha
 		Fecha& operator -- ();//postdecremento
 		Fecha operator ++(int);//preincremento
 		Fecha operator --(int);//predecremento
-		Fecha& operator =(const Fecha& fec);
+		//Fecha& operator =(const Fecha& fec);
+		
 		//funciones modificadoras
 		Fecha& sumadias(int incmt_d);
 		Fecha& restadias(int decmt_d);
@@ -59,11 +59,10 @@ class Fecha
 		Fecha& restames(int decmt_m);
 		Fecha& sumayear(int incmt_a);
 		Fecha& restayear(int decmt_a);
+		
 		//funciones observadoras
-		ostream& observadorPublico()const noexcept;
 		const char* cadena()const noexcept;
-		void visualizar()const noexcept;
-        char* literal()const{static char cad[1]; sprintf(cad,"%d/%d/%4d",d_, m_, a_); return cad;}
+		char* literal()const{static char cad[1]; sprintf(cad,"%d/%d/%4d",d_, m_, a_); return cad;}
 		int anno()const noexcept {return a_;}
 		int mes()const noexcept {return m_;}
 		int dia()const noexcept {return d_;}
@@ -83,13 +82,8 @@ class Fecha
 
 	private:
 		int d_, m_, a_;
-		const time_t get_fecha_ = time(0);
-		const tm * info_fecha_ = localtime(&get_fecha_);
-		inline void default_d_(){d_ = info_fecha_->tm_mday;}
-		inline void default_m_(){m_ = ((info_fecha_->tm_mon) + 1);}
-		inline void default_a_(){a_ = ((info_fecha_->tm_year) + 1900);}
 
-		bool comprueba_fecha(int& dia, int& mes, int& year);
+		bool comprueba_fecha();
 };
 
 /*operadores sobrecargados de mas de un argumento*/

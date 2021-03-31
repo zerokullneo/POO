@@ -1,12 +1,12 @@
 // fecha.cpp
 //
-// lun marzo 16 17:53:48 2015
-// Copyright 2015 Jose M Barba Gonzalez
+// lun marzo 16 17:53:48 2021
+// Copyright 2021 Jose M Barba Gonzalez
 // <user@host>
 //
 // fecha.cpp
 //
-// Copyright (C) 2015 - Jose M Barba Gonzalez
+// Copyright (C) 2021 - Jose M Barba Gonzalez
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,86 +31,57 @@ bool bisiesto(int a)
 	return !(a%4) && ((a%100) || !(a%400));
 }
 
-//CONSTRUCTORES
-Fecha::Fecha(int dia, int mes, int year):d_(dia),m_(mes),a_(year)
+
+int default_d_()
 {
-    if((!dia or dia == 0) and (!mes or mes == 0) and (!year or year == 0))
-    {
-        this->default_d_();
-        this->default_m_();
-        this->default_a_();
-    }
-    else if((!mes or mes == 0) and (!year or year == 0))
-    {
-        d_ = dia;
-        this->default_m_();
-        this->default_a_();
-    }
-    else if((!mes or mes == 0) and (!dia or dia == 0))
-    {
-	a_ = year;
-	this->default_d_();
-	this->default_m_();
-    }
-    else if((!dia or dia == 0) and (!year or year == 0))
-    {
-	m_ = mes;
-	this->default_d_();
-	this->default_a_();
-    }
-    else if((!dia or dia == 0))
-    {
-	this->default_d_();
-	m_ = mes;
-	a_ = year;
-    }
-    else if((!mes or mes == 0))
-    {
-	this->default_m_();
-	d_ = dia;
-	a_ = year;
-    }
-    else if(!year or year == 0)
-    {
-        d_ = dia;
-        m_ = mes;
-        this->default_a_();
-    }
-    else
-    {
-    	if(comprueba_fecha(d_, m_, a_))
-    	{
-		d_ = dia;
-		m_ = mes;
-		a_ = year;
-	}
-    }
+	const time_t get_fecha_ = time(0);
+	const tm * info_fecha_ = localtime(&get_fecha_);
+	return info_fecha_->tm_mday;
+}
+
+int default_m_()
+{
+	const time_t get_fecha_ = time(0);
+	const tm * info_fecha_ = localtime(&get_fecha_);
+	return ((info_fecha_->tm_mon) + 1);
+}
+
+int default_a_()
+{
+	const time_t get_fecha_ = time(0);
+	const tm * info_fecha_ = localtime(&get_fecha_);
+	return ((info_fecha_->tm_year) + 1900);
+}
+
+//CONSTRUCTORES
+Fecha::Fecha(int dia, int mes, int year):d_(dia), m_(mes), a_(year)
+{
+	if(!d_ or d_ == 0)
+		d_ = default_d_();
+	if(!m_ or m_ == 0)
+		m_ = default_m_();
+	if(!year or year == 0)
+		a_ = default_a_();
+
+	comprueba_fecha();
 }
 
 //Constructor de conversión de Cadena a Fecha.
 Fecha::Fecha(const char* string_fecha)
 {
-    if(sscanf(string_fecha,"%d/%d/%d", &d_, &m_, &a_))
+	if(sscanf(string_fecha,"%d/%d/%d", &d_, &m_, &a_) == 3)
 	{
-        if(!a_ or a_ == 0)
-            this->default_a_();
-        if(!m_ or m_ == 0)
-            this->default_m_();
+		if(!a_ or a_ == 0)
+			a_ = default_a_();
+		if(!m_ or m_ == 0)
+			m_ = default_m_();
 		if(!d_ or d_ == 0)
-        {
-            this->default_d_();
-            if(((m_ == 4) or (m_ == 6) or (m_ == 9) or (m_ == 11)) and (d_ > 30))
-                d_ = 30;
-            if((m_ == 2) and bisiesto(a_))
-                d_ = 29;
-            if((m_ == 2) and !bisiesto(a_))
-                d_ = 28;
-        }
+			d_ = default_d_();
 
-		comprueba_fecha(d_, m_, a_);
+		comprueba_fecha();
 	}
 	else
-        throw Fecha::Invalida("Entrada Incorrecta en Constructor de cadena .");
+		throw Fecha::Invalida("Entrada Incorrecta en Constructor de cadena.");
 
 }
 //FIN CONSTRUCTORES
@@ -155,16 +126,17 @@ Fecha Fecha::operator --(int)//predecremento
 	return f;
 }
 
-Fecha& Fecha::operator =(const Fecha& fec)
+/*Fecha& Fecha::operator =(const Fecha& fec)
 {
 	if(this != &fec)
 	{
             d_ = fec.d_;
             m_ = fec.m_;
             a_ = fec.a_;
+            comprueba_fecha();
 	}
 	return *this;
-}
+}*/
 
 Fecha Fecha::operator +(int incremento)
 {
@@ -298,16 +270,6 @@ Fecha& Fecha::restayear(int decmt_a)
 /*-----------------FIN MODIFICADORAS--------------------*/
 
 /*------------------OBSERVADORAS------------------------*/
-
-ostream& Fecha::observadorPublico() const noexcept
-{
-	tm timeinfo = { 0, 0, 0, d_, m_ - 1, a_ - 1900, 0, 0, -1 };
-	mktime(&timeinfo);
-	const char* const weekday[7] = {"Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"};
-	const char* const month[12] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
-	return cout << "Día " << weekday[timeinfo.tm_wday] << " " << d_ << " de " << month[timeinfo.tm_mon] << " del " << a_ << "." << endl;
-}
-
 const char* Fecha::cadena()const noexcept
 {
 	static char f_explicita[40];
@@ -318,21 +280,20 @@ const char* Fecha::cadena()const noexcept
 	sprintf(f_explicita,"%s %d de %s de %4d", weekday[timeinfo.tm_wday], dia(), month[timeinfo.tm_mon], anno());
 	return f_explicita;
 }
-
-void Fecha::visualizar() const noexcept
-{
-   if(d_ > 0 && d_ < 10) cout << "0"; cout << d_ << "/";if(m_ > 0 && m_ < 10) cout << "0"; cout << m_ << "/" << a_ << ".";
-}
 /*------------------FIN OBSERVADORAS---------------------*/
 
-bool Fecha::comprueba_fecha(int& dia, int& mes, int& year)
+bool Fecha::comprueba_fecha()
 {
-	if ((year < AnnoMinimo) || (year > AnnoMaximo))
-        throw Fecha::Invalida("Año Incorrecto.");//year
+//cout << d_ << "/" << m_ << "/" << a_ << endl;
+	if ((a_ < AnnoMinimo) or (a_ > AnnoMaximo))
+	{
+		//cerr << a_ << endl;
+		throw Fecha::Invalida("Año Incorrecto.");//year
+	}
 
 	else
 	{
-		switch(mes)
+		switch(m_)
 		{
 			case 1:
 				case 3:
@@ -341,40 +302,38 @@ bool Fecha::comprueba_fecha(int& dia, int& mes, int& year)
 							case 8:
 								case 10:
 									case 12:
-									{
-										if(dia < 1 || dia > 31)
+										if(d_ < 1 or d_ > 31)
 											throw Fecha::Invalida("Dia31: Dia incorrecto del mes.");//dia
 										break;
-									}
+									
 			case 4:
 				case 6:
 					case 9:
 						case 11:
-						{
-							if(dia < 1 || dia > 30)
+							if(d_ < 1 or d_ > 30)
 								throw Fecha::Invalida("Dia30: Dia incorrecto del mes.");//dia
 							break;
-						}
+						
 			case 2:
 			{
-				if((year % 4) == 0)
+				if((a_ % 4) == 0)
 				{
-					if (dia < 1 || dia > 29)
+					if (d_ < 1 or d_ > 29)
                         		throw Fecha::Invalida("Dia29: Febrero.");//dia
 				}
 				else
 				{
-					if(dia < 0 || dia > 28)
+					if(d_ < 0 or d_ > 28)
 						throw Fecha::Invalida("Dia28: Febrero.");//dia
 				}
 				break;
 			}
 			default:
 				throw Fecha::Invalida("Mes incorrecto.");//mes
+				break;
 		}
+		return true;
 	}
-
-	return true;
 }
 
 
@@ -418,19 +377,19 @@ ostream& operator <<(ostream& os, const Fecha& fec)
 
 istream& operator >>(istream& is, Fecha& fec)
 {
-	static char fecha[11];
+	static char fecha[12];
 
-    int istream_tam = is.readsome(fec.literal(),12);
-    is.seekg(0, is.beg);
-
-    if((istream_tam < 8) or (istream_tam > 11))
-        throw(Fecha::Invalida("Desbordamiento de fecha."));
-
-    if((fec.literal()[1] != '/' and fec.literal()[3] != '/')  and (fec.literal()[2] != '/' and fec.literal()[4] != '/') and (fec.literal()[1] != '/' and fec.literal()[4] != '/') and (fec.literal()[2] != '/' and fec.literal()[5] != '/'))
-        throw Fecha::Invalida("Entrada incorrecta en extraccion.");
-
-	is >> fecha;
-	fec=Fecha(fecha);
+	try
+	{
+        	is.getline(fecha, 11);
+		fecha[11] = '\0';
+		fec = Fecha(fecha);
+	}
+	catch(Fecha::Invalida e)
+	{
+		is.setstate(std::ios::failbit);
+		throw Fecha::Invalida("Error en operator >>");
+	}
 	return is;
 }
 
@@ -462,19 +421,10 @@ Fecha operator - (const Fecha& fec, int decremento)
 	return tmp;
 }
 
-long int operator - (const Fecha& f1, const Fecha& f2)
+long int operator -(const Fecha& f1, const Fecha& f2)
 {
     tm minuendo{0,0,0,f1.dia(),f1.mes()-1, f1.anno()-1900,0,0,0};
     tm sustraendo{0,0,0,f2.dia(),f2.mes()-1, f2.anno()-1900,0,0,0};
     long diferencia = difftime(mktime(&minuendo),mktime(&sustraendo)) / 86400;
     return diferencia;
 }
-
-/*long int operator -(const Fecha& f1, const Fecha$ f2)
-{
-    int bisiestos = ((f1.anno()-f2.anno()) / 4);
-    int meses = abs(f1.mes() - f2.mes()) / 2;
-    long int total_dias = ((f1.anno()-f2.anno())*365+bisiestos)+(abs(f1.mes()-f2.mes())*30+meses)+(abs(f1.dia()-f2.dia()));
-    cout << endl << total_dias << endl;
-    return total_dias;
-}*/

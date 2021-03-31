@@ -1,14 +1,14 @@
 /***************************************************************************
 * cadena.h
 *
-* lun marzo 16 17:53:35 2015
-* Copyright 2015 Jose M Barba Gonzalez
+* lun marzo 16 17:53:35 2021
+* Copyright 2021 Jose M Barba Gonzalez
 * <user@host>
 ****************************************************************************/
 /*
 * cadena.h
 *
-* Copyright (C) 2015 - Jose M Barba Gonzalez
+* Copyright (C) 2021 - Jose M Barba Gonzalez
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -39,13 +39,13 @@ using namespace std;
 class Cadena
 {
 	public:
-        typedef char* iterator;
+		typedef char* iterator;
 		typedef const char* const_iterator;
 		typedef std::reverse_iterator<iterator> reverse_iterator;
-        typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+		typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 		static const size_t npos = -1;//numero de posiciones a copiar.
 
-	    /*Constructores*/
+		/*Constructores*/
 		//Constructor predeterminado texto_[0]=' ';
 		explicit Cadena(){tamano_ = 0;texto_ = new char[1];texto_[0]='\0';}
 		//Constructor de conversión
@@ -70,7 +70,7 @@ class Cadena
 		Cadena& operator =(const char* texto) noexcept;
 		//Asignacion de copia
 		Cadena& operator =(const Cadena& frase) noexcept;
-        //Asignacion de movimiento
+		//Asignacion de movimiento
 		Cadena& operator =(Cadena&& frase) noexcept;
 		char& operator[](unsigned int i) noexcept;
 		char operator[](unsigned int i) const noexcept;
@@ -80,7 +80,7 @@ class Cadena
 		//el numero de caracteres especificado en la variable 'num_caracteres'.
 		Cadena substr(size_t inicio, size_t num_caracteres) const; /*noexcept(false);const throw(out_of_range);*/
 		/*char at(unsigned int i) noexcept(false); const throw(out_of_range);*/
-		char& at(unsigned int i) const noexcept(false); /*throw(out_of_range);*/
+		char& at(unsigned int i) const;
 
 		//funciones observadoras
 		char* Cad() const noexcept {return texto_;}
@@ -92,15 +92,15 @@ class Cadena
 		//const char* imprimirP()const;
 		void imprimirP()const noexcept {cout << texto_;}
 
-        //funciones sobre iteradores
-        iterator begin() const noexcept;
-        iterator end() const noexcept;
-        const_iterator cbegin() const noexcept;
-        const_iterator cend() const noexcept;
-        reverse_iterator rbegin() const noexcept;
-        reverse_iterator rend() const noexcept;
-        const_reverse_iterator crbegin() const noexcept;
-        const_reverse_iterator crend() const noexcept;
+		//funciones sobre iteradores
+		iterator begin() const noexcept;
+		iterator end() const noexcept;
+		const_iterator cbegin() const noexcept;
+		const_iterator cend() const noexcept;
+		reverse_iterator rbegin() const noexcept;
+		reverse_iterator rend() const noexcept;
+		const_reverse_iterator crbegin() const noexcept;
+		const_reverse_iterator crend() const noexcept;
 
 		//Destructor de Cadena
 		~Cadena(){delete [] texto_;};

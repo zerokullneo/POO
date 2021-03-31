@@ -1,12 +1,12 @@
 // cadena.cpp
 //
-// lun marzo 16 17:53:35 2015
-// Copyright 2015 Jose M Barba Gonzalez
+// lun marzo 16 17:53:35 2021
+// Copyright 2021 Jose M Barba Gonzalez
 // <user@host>
 //
 // cadena.cpp
 //
-// Copyright (C) 2015 - Jose M Barba Gonzalez
+// Copyright (C) 2021 - Jose M Barba Gonzalez
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -276,9 +276,9 @@ Cadena Cadena::substr(size_t inicio, size_t num_caracteres) const /*noexcept(fal
 //}
 
 //at Escribir caracter
-char& Cadena::at(unsigned int i) const noexcept(false) /*throw(out_of_range)*/
+char& Cadena::at(unsigned int i) const
 {
-    if((i >= 0 and i <= tamano_) and (tamano_ >= 0))
+    if((i >= 0 and i <= tamano_) and (tamano_ > 0))
         return texto_[i];
 
     else
@@ -329,40 +329,54 @@ Cadena::const_reverse_iterator Cadena::crend() const noexcept
 /*FIN OPERACIONES SOBRE ITERADORES*/
 
 /*OPERADORES DE FLUJO*/
+/** Inserccion */
 ostream& operator <<(ostream& out,const Cadena& texto)
 {
 	out << texto.c_str();
 	return out;
 }
 
-//Extraccion
+/** Extraccion */
 istream& operator >>(istream& in, Cadena& texto)
 {
 	//calcular la longitud del stream "in"
 	in.seekg(0, in.end);
-    int length = in.tellg();
-    in.seekg(0, in.beg);
+	int length = in.tellg();
+	in.seekg(0, in.beg);
+	
+	// alojar memoria de "in":
+	char *buffer = new char [length + 1];
+	buffer[length + 1] = '\0';
 
-    // alojar memoria de "in":
-    char *buffer = new char [length+1];
-	buffer[length]='\0';
-    // leer datos como un bloque:
-    while(in.get() == ' ') in.peek();//Se salta los espacios iniciales.
-    in.seekg(-1, in.cur);//Coloca el puntero de "in" en el primer caracter a leer despues de saltar los espacios.
-    in.getline(buffer,length+1,' ');//lee la entrada hasta el siguiente espacio
-    in.putback(' ');//deja el puntero de "in" en el espacio
+	// leer datos como un bloque:
+	while(in.get() == ' ') in.peek();//Se salta los espacios iniciales.
+	in.seekg(-1, in.cur);//Coloca el puntero de "in" en el primer caracter a leer despues de saltar los espacios.
+	if(length > 32)
+	{
+		in.get(buffer, 33);//lee la entrada hasta el siguiente espacio
+		//in.seekg(0, in.cur);
+		//char car = in.peek();
+		//cout << "@@" << car << "@@";
+		//in.peek();
+	}
+	else
+	{
+		in.getline(buffer, length + 1, ' ');//lee la entrada hasta el siguiente espacio
+		in.putback(' ');//deja el puntero de "in" en el espacio
+	}
 
+//cerr << endl << "#: " << buffer << endl;
 
 	if(strspn(buffer, " \t\r\n\v") > 0)// or buffer == '\0')
-    {
-        const Cadena z;
-        texto = z.c_str();
-        return in;
-    }
+	{
+		const Cadena z;
+		texto = z.c_str();
+		return in;
+	}
 	else
-    {
-        texto=buffer;
-        return in;
-    }
+	{
+		texto = buffer;
+		return in;
+	}
 }
 /*FIN OPERADORES DE FLUJO*/
