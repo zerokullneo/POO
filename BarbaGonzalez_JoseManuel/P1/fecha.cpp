@@ -126,18 +126,7 @@ Fecha Fecha::operator --(int)//predecremento
 	return f;
 }
 
-/*Fecha& Fecha::operator =(const Fecha& fec)
-{
-	if(this != &fec)
-	{
-            d_ = fec.d_;
-            m_ = fec.m_;
-            a_ = fec.a_;
-            comprueba_fecha();
-	}
-	return *this;
-}*/
-
+/*
 Fecha Fecha::operator +(int incremento)
 {
 	if(incremento > 31)
@@ -154,7 +143,7 @@ Fecha Fecha::operator -(int decremento)
 
 	this->restadias(decremento);
 	return *this;
-}
+}*/
 
 /*------------------FIN OPERADORES---------------------*/
 

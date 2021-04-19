@@ -22,12 +22,12 @@ CXXFLAGS = -g -ansi -pedantic -Wall -std=c++11 -DP1 ${INCLUDES}
 # --- Fin parte configurable
 
 INCLUDES  = -I${CADENADIR} -I${FECHADIR} -I${TESTSDIR} #-I${DSL}
-LOCALLIBS = fecha.cpp cadena.cpp
+LOCALSRC = fecha.cpp cadena.cpp
 EXTLIBS   = -lcrypt
-LIBS      = ${LOCALLIBS} ${EXTLIBS}
+LIBS      = ${LOCALSRC} ${EXTLIBS}
 VPATH     = .:${CADENADIR}:${FECHADIR}:${TESTSDIR}
 
-COMM_SRCS = $(LOCALLIBS)
+COMM_SRCS = $(LOCALSRC)
 #MAIN_SRCS = $(COMM_SRCS) test-consola.cpp
 MAIN_SRCS = $(COMM_SRCS) test-fechacadena-consola.cpp
 MAIN_OBJS = $(MAIN_SRCS:.cpp=.o)
@@ -37,7 +37,7 @@ MAIN_EXE = test-fechacadena-consola
 TEST_SRCS = $(COMM_SRCS) test-auto.cpp test-caso0-cadena-auto.cpp test-caso0-fecha-auto.cpp
 TEST_OBJS = $(TEST_SRCS:.cpp=.o)
 #TEST_EXE  = test-p1_4-auto
-TEST_EXE  = ${TESTSDIR}/test-p1-auto
+TEST_EXE  = ../${NOMBREPRACTICA}/test-P1-auto
 
 NOMBRETAR = ../../${NOMBREALUMNO}.tar.gz
 NOMBREDIR = ${NOMBREALUMNO}/${NOMBREPRACTICA}

@@ -50,7 +50,8 @@ class Fecha
 		Fecha& operator -- ();//postdecremento
 		Fecha operator ++(int);//preincremento
 		Fecha operator --(int);//predecremento
-		//Fecha& operator =(const Fecha& fec);
+		//Fecha operator + (int incremento);
+		//Fecha operator - (int decremento);
 		
 		//funciones modificadoras
 		Fecha& sumadias(int incmt_d);
@@ -62,12 +63,9 @@ class Fecha
 		
 		//funciones observadoras
 		const char* cadena()const noexcept;
-		char* literal()const{static char cad[1]; sprintf(cad,"%d/%d/%4d",d_, m_, a_); return cad;}
 		int anno()const noexcept {return a_;}
 		int mes()const noexcept {return m_;}
 		int dia()const noexcept {return d_;}
-		Fecha operator + (int incremento);
-		Fecha operator - (int decremento);
 
 		class Invalida
 		{
@@ -109,11 +107,11 @@ bool operator !=(const Fecha& fec1, const Fecha& fec2);
 Fecha operator + (int incremento, const Fecha& fec);
 Fecha operator + (const Fecha& fec, int incremento);
 
-//Sobrecarga el operador suma para poder restar dias a una clase Fecha.
+//Sobrecarga el operador resta para poder restar dias a una clase Fecha.
 Fecha operator - (int decremento, const Fecha& fec);
 Fecha operator - (const Fecha& fec, int decremento);
 
-//Sobrecarga el operador suma para poder restar dos clase Fecha.
+//Sobrecarga el operador resta para poder restar dos clases Fecha.
 long int operator - (const Fecha& f1, const Fecha& f2);
 
 //Sobrecarga el operador Flujo de Salida para que la fecha sea legible por pantalla.
