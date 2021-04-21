@@ -82,7 +82,7 @@ class Usuario
                 //Constructor predeterminado
                 Id_duplicado(Cadena id_d):idd_(id_d){};
                 //Método observador
-                Cadena idd()const {return idd_;}
+                const Cadena idd()const {return idd_;}
             private:
                 Cadena idd_;
         };
@@ -101,7 +101,7 @@ class Usuario
         const Cadena apellidos()const {return apellidos_;}
         const Cadena direccion()const {return direccion_;}
         const Clave clave()const {return contrasenia_;}
-        size_t n_articulos()const{return articulos_.size();}
+        const size_t n_articulos()const{return articulos_.size();}
         const Tarjetas& tarjetas()const{return tarjetas_;}
         const Articulos& compra()const{return articulos_;}
 

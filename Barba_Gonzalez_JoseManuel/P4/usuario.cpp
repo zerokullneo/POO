@@ -28,39 +28,31 @@
 #include "tarjeta.hpp"
 
 /*CLASE CLAVE*/
-Clave::Clave(const char* clav)
+Clave::Clave(const char* pass)
 {
-    /*if(strlen(clav) < 5)throw Incorrecta(CORTA);
+	if(strlen(pass) < 5)//clave demasiado corta
+		throw Clave::Incorrecta(Clave::CORTA);
 
-    const char* c = crypt(clav,"./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
-    clave_ = c;
+	static char const charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
+	static std::random_device generator; // generador de números aleatorios
+	static std::uniform_int_distribution<std::size_t> distribution(0, 63); // distribución uniforme de size_t entre 0 y 63
 
-    if(!clave_.length())throw Incorrecta(ERROR_CRYPT);*/
-        if(strlen(clav) < 5)//clave demasiado corta
-        throw Clave::Incorrecta(Clave::CORTA);
-    
-    static std::random_device gen; // generador de números aleatorios
-    static std::uniform_int_distribution<std::size_t> dist(0, 63); // distribución uniforme de size_t entre 0 y 63
-    char const caracteres[] = "./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    char salt[2] = { caracteres[dist(gen)], caracteres[dist(gen)]};
-    char* cifrada = crypt(clav, salt); //Aqui se encripta la clave
-    //dist(gen); dist.operator()(gen); => devuelve un número aleatorio distribuido uniformemente entre 0 y 63 usando el generador gen
-    if(cifrada == nullptr) //crypt no esta implementado en mi sistema
-        throw Clave::Incorrecta(Razon::ERROR_CRYPT);
-    if(strlen(cifrada) < 13)//sal incorrecta, caracteres invalidos
-        throw Clave::Incorrecta(Razon::ERROR_CRYPT);
-    clave_ = cifrada;
+	//devuelve un número aleatorio distribuido uniformemente entre 0 y 63 usando el generador dentro de la distribucion
+	char salt[2] = { charset[distribution(generator)], charset[distribution(generator)]};
+
+	char* cifrada = crypt(pass, salt);
+
+	if(cifrada == nullptr) //crypt no esta implementado en mi sistema
+		throw Clave::Incorrecta(Razon::ERROR_CRYPT);
+	if(strlen(cifrada) < 13)//sal incorrecta, caracteres invalidos
+		throw Clave::Incorrecta(Razon::ERROR_CRYPT);
+	clave_ = cifrada;
 }
 
 bool Clave::verifica(const char* pass) const noexcept
 {
-	//pass = crypt(pass,"./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
-	pass = crypt(pass, clave_.c_str());
-
-	if(0 == strcmp(pass, clave_.c_str()))
-		return true;
-	else
-		return false;
+	return clave_ == crypt(pass, clave_.c_str());
+	//return (0 == strcmp(crypt(pass, clave_.c_str()), clave_.c_str()));
 }
 /*FIN CLASE CLAVE*/
 
