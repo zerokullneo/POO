@@ -31,6 +31,7 @@
 #include <cstddef>
 #include <algorithm>
 #include <locale>
+#include <functional>
 #include "usuario.hpp"
 #include "cadena.hpp"
 #include "fecha.hpp"
@@ -63,17 +64,17 @@ class Numero
 
     private:
         Cadena numero_;
-        struct EsBlanco/*: public unary_function<char,bool>*/
+        struct EsBlanco
         {
             EsBlanco(){}
             //locale loc;
             bool operator() (unsigned char c) const { return isspace(c); }
         };
 
-        struct EsDigito/*: public unary_function<char,bool>*/
+        struct EsDigito
         {
             EsDigito(){}
-            bool operator() (unsigned char c) const { return not isdigit(c); }
+            bool operator() (unsigned char c) const { return isdigit(c); }
         };
 
 };
