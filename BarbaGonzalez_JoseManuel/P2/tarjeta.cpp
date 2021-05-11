@@ -37,14 +37,16 @@ bool luhn(const Cadena& numero/*, size_t n*/);
 Numero::Numero(const Cadena& n)/*: numero_(n)*/
 {
 	Cadena c;
-	remove_copy_if(n.begin(), n.end(), c.begin(), EsBlanco());//([](unsigned char c){ return std::isspace(c); } || ::isspace) quita los espacios en blanco que encuentra
-	c = c.c_str();
+	//([](unsigned char c){ return std::isspace(c); } || ::isspace) quita los espacios en blanco que encuentra
+	//remove_copy_if(n.begin(), n.end(), c.begin(), EsBlanco());
+	remove_if(n.begin(), n.end(), EsBlanco());
+	c = n.c_str();
 
 	if(c.length() < 13 or c.length() > 19)
 		throw Incorrecto(LONGITUD);
 	else
 	{
-		if( find_if(c.begin(), c.end(), EsDigito()) != c.end() )
+		if( find_if(c.begin(), c.end(), not_fn(EsDigito())) != c.end() )
 			throw Incorrecto(DIGITOS);
 
 		if(luhn(c))
