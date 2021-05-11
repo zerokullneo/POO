@@ -50,7 +50,6 @@ class Fecha
 		Fecha& operator -- ();//postdecremento
 		Fecha operator ++(int);//preincremento
 		Fecha operator --(int);//predecremento
-		//Fecha& operator =(const Fecha& fec);
 		
 		//funciones modificadoras
 		Fecha& sumadias(int incmt_d);
@@ -66,8 +65,6 @@ class Fecha
 		int anno()const noexcept {return a_;}
 		int mes()const noexcept {return m_;}
 		int dia()const noexcept {return d_;}
-		Fecha operator + (int incremento);
-		Fecha operator - (int decremento);
 
 		class Invalida
 		{

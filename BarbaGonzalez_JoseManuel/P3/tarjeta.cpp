@@ -34,13 +34,31 @@ bool luhn(const Cadena& numero/*, size_t n*/);
 /*FIN VALIDACIÓN*/
 
 /*CLASE NUMERO*/
-Numero::Numero(const Cadena& n)/*: numero_(n)*/
+Numero::Numero(const Cadena& n): numero_(n)
 {
-	Cadena c;
 	//([](unsigned char c){ return std::isspace(c); } || ::isspace) quita los espacios en blanco que encuentra
-	//remove_copy_if(n.begin(), n.end(), c.begin(), EsBlanco());
-	remove_if(n.begin(), n.end(), EsBlanco());
-	c = n.c_str();
+	Cadena::iterator fin = remove_if(numero_.begin(), numero_.end(), EsBlanco());
+	
+	if(fin != numero_.end())
+		numero_ = numero_.substr(0, fin - numero_.begin());
+
+	if( find_if(numero_.begin(), numero_.end(), not_fn(EsDigito())) != numero_.end() )
+		throw Incorrecto(DIGITOS);
+		
+	if(numero_.length() < 13 or numero_.length() > 19)
+		throw Incorrecto(LONGITUD);
+
+	if(not luhn(numero_))
+		throw Incorrecto(NO_VALIDO);
+}
+/*
+Numero::Numero(const Cadena& n): numero_(n)
+{
+	//([](unsigned char c){ return std::isspace(c); } || ::isspace) quita los espacios en blanco que encuentra
+	Cadena c;
+	remove_copy_if(n.begin(), n.end(), c.begin(), EsBlanco());
+
+	c = c.c_str();
 
 	if(c.length() < 13 or c.length() > 19)
 		throw Incorrecto(LONGITUD);
@@ -55,7 +73,7 @@ Numero::Numero(const Cadena& n)/*: numero_(n)*/
 			throw Incorrecto(NO_VALIDO);
 	}
 }
-
+*/
 bool operator <(const Numero& n1, const Numero& n2)
 {
 	if(strcmp( n1.numero_.c_str(), n2.numero_.c_str()) < 0)
