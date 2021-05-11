@@ -66,14 +66,14 @@ class Numero
         Cadena numero_;
         struct EsBlanco
         {
-            EsBlanco(){}
+            //EsBlanco(){}
             //locale loc;
             bool operator() (unsigned char c) const { return isspace(c); }
         };
 
         struct EsDigito
         {
-            EsDigito(){}
+            //EsDigito(){}
             bool operator() (unsigned char c) const { return isdigit(c); }
         };
 

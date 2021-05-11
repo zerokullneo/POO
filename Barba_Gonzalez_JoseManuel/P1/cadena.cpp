@@ -252,7 +252,7 @@ bool operator <(const Cadena& texto1,const Cadena& texto2)
 /*SUBCADENA*/
 Cadena Cadena::substr(size_t inicio, size_t num_caracteres) const /*noexcept(false)const throw(out_of_range)*/
 {
-	if(((inicio >= 0) and (inicio <= tamano_)) and (((num_caracteres > 0) and (num_caracteres < tamano_)) and ((inicio+num_caracteres) < tamano_)))
+	if((inicio < tamano_) /*and (num_caracteres > 0)*/ and (num_caracteres <= (tamano_ - inicio)))
 	{
 		Cadena subtxt(num_caracteres);
 		for(size_t i = inicio, j = 0; j < num_caracteres; i++, j++)

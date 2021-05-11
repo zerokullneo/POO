@@ -28,7 +28,7 @@
 
 int Pedido::N_pedidos = 0;
 
-Pedido::Pedido(Usuario_Pedido& U_P, Pedido_Articulo& P_A, Usuario& U, const Tarjeta& T,const Fecha& F):num_(N_pedidos+1),total_(0.0),tarjeta_(&T),fecha_pedido_(F)
+Pedido::Pedido(Usuario_Pedido& U_P, Pedido_Articulo& P_A, Usuario& U, const Tarjeta& T,const Fecha& F):num_(N_pedidos + 1),total_(0.0),tarjeta_(&T),fecha_pedido_(F)
 {
 	if(U.compra().empty())
 		throw(Vacio(U));
