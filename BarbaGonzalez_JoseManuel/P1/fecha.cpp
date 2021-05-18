@@ -125,26 +125,6 @@ Fecha Fecha::operator --(int)//predecremento
 	this->restadias(1);
 	return f;
 }
-
-/*
-Fecha Fecha::operator +(int incremento)
-{
-	if(incremento > 31)
-		return *this;
-
-	this->sumadias(incremento);
-	return *this;
-}
-
-Fecha Fecha::operator -(int decremento)
-{
-	if(decremento > 31)
-		return *this;
-
-	this->restadias(decremento);
-	return *this;
-}*/
-
 /*------------------FIN OPERADORES---------------------*/
 
 /*--------------------MODIFICADORAS--------------------*/
