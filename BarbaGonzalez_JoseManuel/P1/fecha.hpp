@@ -29,8 +29,6 @@
 #ifndef FECHA_H_
 #define FECHA_H_
 
-#include <ctime>
-
 class Fecha
 {
 	public:
@@ -79,7 +77,6 @@ class Fecha
 
 	private:
 		int d_, m_, a_;
-
 		bool comprueba_fecha();
 };
 

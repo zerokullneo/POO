@@ -24,8 +24,8 @@
 #include "articulo.hpp"
 
 /*CLASE ARTICULO - */
-Articulo::Articulo(const Autores& aut, const Cadena& refr, const Cadena& tit, const Fecha& fec, double pvp, unsigned int stk):
-autores_(aut),referencia_(refr), titulo_(tit), f_publi_(fec), precio_(pvp), stock_(stk)
+Articulo::Articulo(const Autores& aut, const Cadena& refr, const Cadena& tit, const Fecha& fec, double pvp):
+autores_(aut),referencia_(refr), titulo_(tit), f_publi_(fec), precio_(pvp)
 {
 	if(autores_.empty())//excepción en caso que no se hayan asignado autores_
 		throw Autores_vacios();
@@ -33,7 +33,7 @@ autores_(aut),referencia_(refr), titulo_(tit), f_publi_(fec), precio_(pvp), stoc
 /*FIN CLASE ARTICULO*/
 
 /*CLASE ARTICULOALMACENABLE - */
-ArticuloAlmacenable::ArticuloAlmacenable(const Autores& a,const Cadena& r,const Cadena& t,const Fecha& f,double p,unsigned int s):Articulo(a,r,t,f,p),stockAA_(s)
+ArticuloAlmacenable::ArticuloAlmacenable(const Autores& a,const Cadena& r,const Cadena& t,const Fecha& f,double p,unsigned int s):Articulo(a,r,t,f,p),stock_(s)
 {
 }
 /*FIN CLASE ARTICULOALMACENABLE*/
@@ -43,10 +43,9 @@ LibroDigital::LibroDigital(const Autores& a,const Cadena& r,const Cadena& t,cons
 {
 }
 
-ostream& LibroDigital::impresion_especifica(ostream& out) const
+void LibroDigital::impresion_especifica(ostream& out) const
 {
-	out << "A la venta hasta el " << expiracion_.cadena() << ".";
-	return out;
+	out << "A la venta hasta el " << expiracion_ << ".";//.cadena()
 }
 /*FIN CLASE LIBRODIGITAL*/
 
@@ -55,10 +54,9 @@ Libro::Libro(const Autores& a,const Cadena& r,const Cadena& t,const Fecha& f,dou
 {
 }
 
-ostream& Libro::impresion_especifica(ostream& out) const
+void Libro::impresion_especifica(ostream& out) const
 {
-	out << paginas_ << " págs., " << this->stock() << " unidades.";
-	return out;
+	out << paginas_ << " págs., " << stock_ << " unidades.";
 }
 /*FIN CLASE LIBRO*/
 
@@ -67,13 +65,13 @@ Cederron::Cederron(const Autores& a, const Cadena& r,const Cadena& t,const Fecha
 {
 }
 
-ostream& Cederron::impresion_especifica(ostream& out) const
+void Cederron::impresion_especifica(ostream& out) const
 {
-	out << tamano_ << " MB, " << this->stock() << " unidades.";
-	return out;
+	out << tamano_ << " MB, " << stock_ << " unidades.";
 }
 /*FIN CLASE CEDERRON*/
 
+/* Operador Inserccion Externo*/
 ostream& operator <<(ostream& out, const Articulo& art)
 {
     Articulo::Autores::const_iterator aut = art.autores().begin();

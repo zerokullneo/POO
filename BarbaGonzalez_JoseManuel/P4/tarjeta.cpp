@@ -29,7 +29,7 @@
 
 /*VALIDACIÓN DEL NÚMERO DE TARJETA*/
 
-bool luhn(const Cadena& numero/*, size_t n*/);
+bool luhn(const Cadena& numero);
 
 /*FIN VALIDACIÓN*/
 

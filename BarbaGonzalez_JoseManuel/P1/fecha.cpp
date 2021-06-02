@@ -23,6 +23,7 @@
 
 #include "fecha.hpp"
 #include <string.h>
+#include <ctime>
 
 using namespace std;
 
@@ -31,29 +32,63 @@ bool bisiesto(int a)
 	return !(a%4) && ((a%100) || !(a%400));
 }
 
+/*FIJAR O ASIGNAR HORA POR DEFECTO*/
+/*Variable que es inicializada por getLocalTimeZone() los datos de la hora local del sistema*/
+static tm * set_fecha_;
 
+/**
+ * @brief Get the Local Time Zone object
+ * @pre Debe existir una variable "tm*" (set_fecha_) para que se pueda inicializar
+ * @post Asigna los datos de la hora local del sistema a la variable "tm*"
+ */
+void getLocalTimeZone()
+{
+	setenv("TZ", "/usr/share/zoneinfo/Europe/Madrid", 1);
+	time_t info_fecha_ = time(0);
+	set_fecha_ = localtime(&info_fecha_);
+}
+
+/**
+ * @brief Recoge el dia por defecto de la hora local del sistema de la variable "tm*"
+ * 
+ * @return int con el dia de la variable "tm*" set_fecha_
+ */
 int default_d_()
 {
-	const time_t get_fecha_ = time(0);
-	const tm * info_fecha_ = localtime(&get_fecha_);
-	return info_fecha_->tm_mday;
+	if(set_fecha_ == nullptr)
+		getLocalTimeZone();
+
+	return set_fecha_->tm_mday;
 }
 
+/**
+ * @brief Recoge el mes por defecto de la hora local del sistema de la variable "tm*"
+ * 
+ * @return int con el mes de la variable "tm*" set_fecha_
+ */
 int default_m_()
 {
-	const time_t get_fecha_ = time(0);
-	const tm * info_fecha_ = localtime(&get_fecha_);
-	return ((info_fecha_->tm_mon) + 1);
+	if(set_fecha_ == nullptr)
+		getLocalTimeZone();
+
+	return ((set_fecha_->tm_mon) + 1);
 }
 
+/**
+ * @brief Recoge el año por defecto de la hora local del sistema de la variable "tm*"
+ * 
+ * @return int con el año de la variable "tm*" set_fecha_
+ */
 int default_a_()
 {
-	const time_t get_fecha_ = time(0);
-	const tm * info_fecha_ = localtime(&get_fecha_);
-	return ((info_fecha_->tm_year) + 1900);
-}
+	if(set_fecha_ == nullptr)
+		getLocalTimeZone();
 
-//CONSTRUCTORES
+	return ((set_fecha_->tm_year) + 1900);
+}
+/*FIN FIJAR O ASIGNAR HORA POR DEFECTO*/
+
+/*CONSTRUCTORES*/
 Fecha::Fecha(int dia, int mes, int year):d_(dia), m_(mes), a_(year)
 {
 	if(!d_ or d_ == 0)
@@ -84,7 +119,7 @@ Fecha::Fecha(const char* string_fecha)
 		throw Fecha::Invalida("Entrada Incorrecta en Constructor de cadena.");
 
 }
-//FIN CONSTRUCTORES
+/*FIN CONSTRUCTORES*/
 
 //OPERADORES
 

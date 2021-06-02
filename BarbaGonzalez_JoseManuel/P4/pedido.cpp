@@ -65,7 +65,7 @@ Pedido::Pedido(Usuario_Pedido& U_P, Pedido_Articulo& P_A, Usuario& U, const Tarj
             }
             else
             {
-                U.compra(*i->first,0);
+                U.compra(*i->first,0);//Quita el artículo de la compra del usuario
                 LD->f_expir();
             }
         }
@@ -96,9 +96,9 @@ Pedido::Pedido(Usuario_Pedido& U_P, Pedido_Articulo& P_A, Usuario& U, const Tarj
         throw Vacio(U);
 
     //Vaciar el Carrito
-    //const_cast<Usuario::Articulos&>(U.compra()).clear();
-    for(Usuario::Articulos::iterator j = A.begin(); j != A.end(); j++)
-        U.compra(*(j->first),0);
+    const_cast<Usuario::Articulos&>(U.compra()).clear();
+    /*for(Usuario::Articulos::iterator j = A.begin(); j != A.end(); j++)
+        U.compra(*(j->first),0);*/
 
     //Asociar usuario con Pedido
     U_P.asocia(U,*this);

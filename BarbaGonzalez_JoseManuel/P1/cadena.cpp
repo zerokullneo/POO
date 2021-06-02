@@ -341,12 +341,12 @@ istream& operator >>(istream& in, Cadena& texto)
 {
 	//calcular la longitud del stream "in"
 	in.seekg(0, in.end);
-	int length = in.tellg();
+	unsigned int length = in.tellg();
 	in.seekg(0, in.beg);
 	
 	// alojar memoria de "in":
 	char *buffer = new char [length + 1];
-	buffer[length + 1] = '\0';
+	buffer[length] = '\0';
 
 	// leer datos como un bloque:
 	while(in.get() == ' ') in.peek();//Se salta los espacios iniciales.

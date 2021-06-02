@@ -33,19 +33,20 @@ Clave::Clave(const char* pass)
 	if(strlen(pass) < 5)//clave demasiado corta
 		throw Clave::Incorrecta(Clave::CORTA);
 
-	static char const charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
+	static const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 	static std::random_device generator; // generador de números aleatorios
 	static std::uniform_int_distribution<std::size_t> distribution(0, 63); // distribución uniforme de size_t entre 0 y 63
 
 	//devuelve un número aleatorio distribuido uniformemente entre 0 y 63 usando el generador dentro de la distribucion
-	char salt[2] = { charset[distribution(generator)], charset[distribution(generator)]};
+	const char salt[2] = { charset[distribution(generator)], charset[distribution(generator)]};
 
-	char* cifrada = crypt(pass, salt);
+	const char* cifrada = crypt(pass, salt);
 
 	if(cifrada == nullptr) //crypt no esta implementado en mi sistema
 		throw Clave::Incorrecta(Razon::ERROR_CRYPT);
 	if(strlen(cifrada) < 13)//sal incorrecta, caracteres invalidos
 		throw Clave::Incorrecta(Razon::ERROR_CRYPT);
+
 	clave_ = cifrada;
 }
 
@@ -85,7 +86,7 @@ void Usuario::no_es_titular_de(Tarjeta& T) noexcept
 
 void Usuario::compra(Articulo& A, unsigned i) noexcept
 {
-    if(i == 0)//si se recibe un 0 como cantidad se vacía el carro.
+    if(i == 0)//si se recibe un 0 como cantidad se quita el artículo del carro.
         articulos_.erase(&A);
     else
     {
@@ -116,7 +117,7 @@ ostream& operator <<(ostream& out, const Usuario& u)
 
 ostream& mostrar_carro(ostream& out, const Usuario& u)
 {
-    out << "Carrito de compras de " << u.id() << " [Artículos: " << u.n_articulos() << "]\n";
+    out << "Carrito de compra de " << u.id() << " [Artículos: " << u.n_articulos() << "]\n";
 
     if(u.n_articulos() != 0)
     {
