@@ -45,7 +45,7 @@ LibroDigital::LibroDigital(const Autores& a,const Cadena& r,const Cadena& t,cons
 
 void LibroDigital::impresion_especifica(ostream& out) const
 {
-	out << "A la venta hasta el " << expiracion_ << ".";//.cadena()
+	out << "A la venta hasta el " << f_expir() << ".";//.cadena()
 }
 /*FIN CLASE LIBRODIGITAL*/
 
