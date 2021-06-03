@@ -30,6 +30,7 @@
 #include <random>
 #include <set>
 #include <map>
+#include <unordered_map>
 #include "cadena.hpp"
 #include "fecha.hpp"
 #include "articulo.hpp"
