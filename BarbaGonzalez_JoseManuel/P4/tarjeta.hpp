@@ -119,17 +119,18 @@ class Tarjeta
         Tarjeta& operator=(const Tarjeta& tjt)=delete;
 
         //Métodos observadores de los atributos de Tarjeta.
-        const Numero& tarjeta() const {return tarjeta_;}
-        const Numero& numero() const {return tarjeta_;}
-        const Fecha& caducidad() const {return f_caducidad_;}
-        Cadena titular_facial() const {return titular_facial_;}
-        const Usuario* titular() const {return titular_;}
-        void anula_titular() noexcept;
-        const bool activa() const {return activa_;}
-        bool activa(bool activa = true);
+        const Numero& tarjeta() const noexcept {return tarjeta_;}
+        const Numero& numero() const noexcept {return tarjeta_;}
+        const Fecha& caducidad() const noexcept {return f_caducidad_;}
+		const Cadena titular_facial() const noexcept {return titular_facial_;}
+		const Usuario* titular() const noexcept {return titular_;}
+		const bool activa() const noexcept {return activa_;}
 
-	enum Tipo{Otro, VISA, Mastercard, Maestro, JCB, AmericanExpress};
-	Tipo tipo() const;
+		bool activa(bool activa = true);
+		void anula_titular() noexcept;
+
+		enum Tipo{Otro, VISA, Mastercard, Maestro, JCB, AmericanExpress};
+		Tipo tipo() const;
 
         ~Tarjeta();
 

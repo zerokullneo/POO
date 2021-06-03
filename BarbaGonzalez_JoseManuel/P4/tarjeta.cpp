@@ -186,25 +186,25 @@ ostream& operator <<(ostream& out, const Tarjeta::Tipo& tipo)
 	switch(tipo)
 	{
 		case Tarjeta::VISA:
-			out << "VISA" << endl;
+			out << "VISA";
 			break;
 		case Tarjeta::Mastercard:
-			out << "MasterCard" << endl;
+			out << "MasterCard";
 			break;
 		case Tarjeta::Maestro:
-			out << "Maestro" << endl;
+			out << "Maestro";
 			break;
 		case Tarjeta::AmericanExpress:
-			out << "AmericanExpress" << endl;
+			out << "AmericanExpress";
 			break;
 		case Tarjeta::JCB:
-			out << "JCB" << endl;
+			out << "JCB";
 			break;
 		case Tarjeta::Otro:
-			out << "Otro" << endl;
+			out << "Otro";
 			break;
 		default:
-			out << "Error, tarjeta desconocida" << endl;
+			out << "Error, tarjeta desconocida";
 			break;
 	}
 
