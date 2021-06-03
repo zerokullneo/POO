@@ -44,7 +44,7 @@ ${COMMONOBJS}: ${COMMONHDRS} ${COMMONSRCS}
 
 check: ${EXE}
 	@echo Verificando fecha.cpp y cadena.cpp ...
-	./fecha_cadena_check -extra-arg-before="-D$P" -extra-arg="-std=c++11" \
+	./fecha_cadena_check -extra-arg-before="-D$P" -extra-arg="-std=c++17" \
 	fecha.cpp cadena.cpp --
 
 clean:

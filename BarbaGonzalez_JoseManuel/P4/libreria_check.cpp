@@ -26,7 +26,7 @@ int main(int argc, const char **argv)
 	       "Modo de empleo: ./libreria_check *.cpp --"
 	       " -std=c++14 -I../P1 -DPx  # x es 2, 3 o 4");
   //	       " articulo.cpp tarjeta.cpp usuario.cpp pedido.cpp"
-  //	       " pedido-articulo.cpp usuario-pedido.cpp -- -std=c++14"
+  //	       " pedido-articulo.cpp usuario-pedido.cpp -- -std=c++17"
   //	       " -I../P1");
   string headerName = "cstring";
   vector<string> functionNames = {"strlen", "strcat", "memset", 

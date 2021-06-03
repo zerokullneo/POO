@@ -16,7 +16,7 @@ DIR=../dsl-comprobaciones/
 # Obligatorio Clang, versión 3.9 al menos.
 CXX         := clang++
 CPPFLAGS    := -I${DIR} -D$P $(shell llvm-config --cppflags)
-CXXFLAGS    := -std=c++14
+CXXFLAGS    := -std=c++17
 # Añadir -static en la siguiente línea para obtener un ejecutable enlazado 
 # estáticamente muy grande y pesado pero que se puede distribuir al 
 # alumnado para que no tengan que instalarse todos los paquetes de 
@@ -52,7 +52,7 @@ $(OWNSOURCE): ${COMMONOBJS} $(COMMONHDRS)
 
 check: ${EXE}
 	@echo Verificando los fuentes ...
-	./${EXE} -extra-arg-before="-I../P1" -extra-arg="-std=c++14" \
+	./${EXE} -extra-arg-before="-I../P1" -extra-arg="-std=c++17" \
           ${VERIFYSRCS} -- -D$P
 
 clean:

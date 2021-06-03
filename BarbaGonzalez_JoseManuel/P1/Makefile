@@ -18,7 +18,7 @@ FECHADIR = .
 TESTSDIR = ../Tests-auto
 #DSL = ../dsl-comprobaciones
 # -fexceptions
-CXXFLAGS = -g -ansi -pedantic -Wall -std=c++11 -DP1 ${INCLUDES}
+CXXFLAGS = -g -ansi -pedantic -Wall -std=c++17 -DP1 ${INCLUDES}
 # --- Fin parte configurable
 
 INCLUDES  = -I${CADENADIR} -I${FECHADIR} -I${TESTSDIR} #-I${DSL}
