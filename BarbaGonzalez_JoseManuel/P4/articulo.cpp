@@ -45,7 +45,7 @@ LibroDigital::LibroDigital(const Autores& a,const Cadena& r,const Cadena& t,cons
 
 void LibroDigital::impresion_especifica(ostream& out) const
 {
-	out << "A la venta hasta el " << f_expir() << ".";//.cadena()
+	out << "A la venta hasta el " << f_expir() << ".";
 }
 /*FIN CLASE LIBRODIGITAL*/
 
@@ -56,7 +56,7 @@ Libro::Libro(const Autores& a,const Cadena& r,const Cadena& t,const Fecha& f,dou
 
 void Libro::impresion_especifica(ostream& out) const
 {
-	out << paginas_ << " págs., " << stock_ << " unidades.";
+	out << paginas_ << " págs., " << stock() << " unidades.";
 }
 /*FIN CLASE LIBRO*/
 
@@ -67,7 +67,7 @@ Cederron::Cederron(const Autores& a, const Cadena& r,const Cadena& t,const Fecha
 
 void Cederron::impresion_especifica(ostream& out) const
 {
-	out << tamano_ << " MB, " << stock_ << " unidades.";
+	out << tam() << " MB, " << stock() << " unidades.";
 }
 /*FIN CLASE CEDERRON*/
 

@@ -132,7 +132,7 @@ class Libro: public ArticuloAlmacenable
 };
 
 
-class Cederron:public ArticuloAlmacenable
+class Cederron: public ArticuloAlmacenable
 {
     public:
         Cederron(const Autores& a, const Cadena& r, const Cadena& t, const Fecha& f, double p, unsigned tm, unsigned int s=1);
