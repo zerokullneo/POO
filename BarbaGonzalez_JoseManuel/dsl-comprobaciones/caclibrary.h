@@ -6,6 +6,9 @@
 #ifndef CHECKCODE_H_
 #define CHECKCODE_H_
 
+#undef P1
+#undef P2
+
 #include "clang/Frontend/FrontendActions.h"
 #include "clang/Tooling/CommonOptionsParser.h"
 #include "clang/Tooling/Tooling.h"
