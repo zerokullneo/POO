@@ -38,9 +38,18 @@ class Pedido;
 class LineaPedido
 {
 	public:
+		/**
+		 * @brief Construct a new Linea Pedido object
+		 * 
+		 * @param p precio de venta del articulo de la linea del pedido
+		 * @param c cantidad de articulos de la linea del pedido
+		 */
 		explicit LineaPedido(double p,unsigned c=1);
-		double precio_venta()const{return precio_venta_;}
-		unsigned cantidad()const{return cantidad_;}
+
+		/*Metodos Observadores*/
+		const double precio_venta() const noexcept {return precio_venta_;}
+		const unsigned cantidad() const noexcept {return cantidad_;}
+
 	private:
 		double precio_venta_;
 		unsigned cantidad_;
