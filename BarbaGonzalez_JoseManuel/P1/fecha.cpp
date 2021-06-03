@@ -43,8 +43,10 @@ static tm * set_fecha_;
  */
 void getLocalTimeZone()
 {
-	setenv("TZ", "/usr/share/zoneinfo/Europe/Madrid", 1);
-	time_t info_fecha_ = time(0);
+	///usr/share/zoneinfo/Europe/Madrid
+	setenv("TZ", "", 1);
+	tzset();
+	time_t info_fecha_ = time(nullptr);
 	set_fecha_ = localtime(&info_fecha_);
 }
 
