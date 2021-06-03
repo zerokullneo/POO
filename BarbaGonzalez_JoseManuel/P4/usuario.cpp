@@ -107,7 +107,7 @@ Usuario::~Usuario()
 /*Inserccion en flujo*/
 ostream& operator <<(ostream& out, const Usuario& u)
 {
-    out << u.id() << " [" << u.clave().clave() << "] " << u.nombre() << " " << u.apellidos() << endl << u.direccion() << endl << "Tarjetas:\n";
+    out << u.id() << " [" << u.clave().clave() << "] " << u.nombre() << " " << u.apellidos() << endl << u.direccion() << endl << "Tarjetas:" << endl;
 
     for(Usuario::Tarjetas::const_iterator it = u.tarjetas().begin(); it != u.tarjetas().end(); it++)
         out << *((*it).second) << endl;
@@ -117,12 +117,12 @@ ostream& operator <<(ostream& out, const Usuario& u)
 
 ostream& mostrar_carro(ostream& out, const Usuario& u)
 {
-    out << "Carrito de compra de " << u.id() << " [Artículos: " << u.n_articulos() << "]\n";
+    out << "Carrito de compra de " << u.id() << " [Artículos: " << u.n_articulos() << "]" << endl;
 
     if(u.n_articulos() != 0)
     {
-        out << " Cant. Artículo\n";
-        out << "=======================================================================\n";
+        out << " Cant. Artículo" << endl;
+        out << "=======================================================================" << endl;
         for(Usuario::Articulos::const_iterator it = u.compra().begin(); it != u.compra().end(); it++)
         {
             out << (*it).second << " " << "[" << it->first->referencia() << "] \"" << it->first->titulo() << "\", " << it->first->f_publi().anno();

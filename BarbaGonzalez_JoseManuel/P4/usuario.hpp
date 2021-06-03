@@ -97,14 +97,14 @@ class Usuario
         Usuario& operator =(const Usuario&)=delete;
 
         //Métodos observadores de los atributos.
-        const Cadena id()const {return identificador_;}
-        const Cadena nombre()const {return nombre_;}
-        const Cadena apellidos()const {return apellidos_;}
-        const Cadena direccion()const {return direccion_;}
-        const Clave clave()const {return contrasenia_;}
-        const size_t n_articulos()const{return articulos_.size();}
-        const Tarjetas& tarjetas()const{return tarjetas_;}
-        const Articulos& compra()const{return articulos_;}
+        const Cadena id() const noexcept {return identificador_;}
+        const Cadena nombre() const noexcept {return nombre_;}
+        const Cadena apellidos() const noexcept {return apellidos_;}
+        const Cadena direccion() const noexcept {return direccion_;}
+        const Clave clave() const noexcept {return contrasenia_;}
+        const size_t n_articulos() const noexcept {return articulos_.size();}
+        const Tarjetas& tarjetas() const noexcept {return tarjetas_;}
+        const Articulos& compra() const noexcept {return articulos_;}
 
         //Métodos modificadores
         void es_titular_de(Tarjeta& T) noexcept;
