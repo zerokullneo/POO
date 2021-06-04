@@ -39,12 +39,12 @@ void Usuario_Pedido::asocia(Pedido& p, Usuario& u)
 }
 
 /*Observadores*/
-const Usuario_Pedido::Pedidos Usuario_Pedido::pedidos(Usuario& u)
+const Usuario_Pedido::Pedidos Usuario_Pedido::pedidos(Usuario& u) noexcept
 {
 	return Usuario_Pedidos_[&u];
 }
 
-const Usuario* Usuario_Pedido::cliente(Pedido& p)
+const Usuario* Usuario_Pedido::cliente(Pedido& p) noexcept
 {
 	return Pedido_Usuario_[&p];
 }

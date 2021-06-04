@@ -60,7 +60,7 @@ class Clave
         //constructor
         Clave(const char* clav);
         //método observador
-        const Cadena clave() const {return clave_;}
+        const Cadena clave() const noexcept {return clave_;}
         //método verificador
         bool verifica(const char* pass) const noexcept;
 

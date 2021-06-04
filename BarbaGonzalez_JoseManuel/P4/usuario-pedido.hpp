@@ -43,8 +43,8 @@ class Usuario_Pedido
 		void asocia(Pedido& p,Usuario& u);
 
         //métodos observadores
-		const Pedidos pedidos(Usuario& u);
-		const Usuario* cliente(Pedido& p);
+		const Pedidos pedidos(Usuario& u) noexcept;
+		const Usuario* cliente(Pedido& p) noexcept;
 
 	private:
 		map <Usuario*, Pedidos> Usuario_Pedidos_;

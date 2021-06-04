@@ -47,7 +47,7 @@ class Pedido
 		{
 			public:
 				Vacio(const Usuario& u):u(&u){}
-				const Usuario& usuario()const{return *u;}
+				const Usuario& usuario() const noexcept {return *u;}
 			private:
 				const Usuario* u;
 		};
@@ -57,7 +57,7 @@ class Pedido
 		{
 			public:
 				Impostor(const Usuario& u):u(&u){}
-				const Usuario& usuario()const{return *u;}
+				const Usuario& usuario() const noexcept {return *u;}
 			private:
 				const Usuario* u;
 		};
@@ -67,7 +67,7 @@ class Pedido
 		{
 			public:
 				SinStock(const Articulo& a):a(&a){}
-				const Articulo& articulo()const{return *a;}
+				const Articulo& articulo() const noexcept {return *a;}
 			private:
 				const Articulo* a;
 		};
@@ -78,13 +78,13 @@ class Pedido
 		//Metodos Observadores
 		static int n_total_pedidos(){return N_pedidos;}
 		//El numero del pedido
-		int numero()const{return num_;}
+		const int numero() const noexcept {return num_;}
 		//Tarjeta de pago del pedido
-		const Tarjeta* tarjeta()const{return tarjeta_;}
+		const Tarjeta* tarjeta() const noexcept {return tarjeta_;}
 		//El precio total del pedido
-		double total()const{return total_;}
+		const double total() const noexcept {return total_;}
 		//Fecha del pedido
-		Fecha fecha()const{return fecha_pedido_;}
+		const Fecha fecha() const noexcept {return fecha_pedido_;}
 
 		~Pedido(){};
 
