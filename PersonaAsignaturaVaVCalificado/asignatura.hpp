@@ -10,9 +10,10 @@ class Asignatura
 {
     public:
         typedef std::set<Persona*> Personas;
-        Asignatura(std::string nombre, std::string area);
+        Asignatura(std::string codigo, std::string nombre, std::string area);
 
-        string codigo() const;
+        std::string codigo() const;
+        std::string nombre() const;
         void mostrar() const;
         void impartida(Persona& persona);
         const Personas& impartida() const;

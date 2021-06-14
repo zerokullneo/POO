@@ -17,7 +17,7 @@ void Persona::mostrar() const
 //Asociación: una persona imparte una asignatura.
 void Persona::imparte(Asignatura& asignatura)
 {
-    asignaturas_.insert(make_pair(asignatura.codigo_, &asignatura));
+    asignaturas_.insert(make_pair(asignatura.codigo(), &asignatura));
 }
 
 //Devuelve la asignatura impartida por una persona

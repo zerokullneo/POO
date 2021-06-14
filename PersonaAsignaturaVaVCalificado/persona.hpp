@@ -9,7 +9,7 @@ class Asignatura;
 class Persona
 {
     public:
-        typedef std::map<string, Asignatura*> AsignaturasCalificadas;
+        typedef std::map<std::string, Asignatura*> AsignaturasCalificadas;
         Persona(std::string nombre, std::string apellidos, std::string direccion);
 
         void mostrar() const;
