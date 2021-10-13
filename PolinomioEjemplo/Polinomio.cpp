@@ -6,11 +6,17 @@ Polinomio::Polinomio()
 	m_.insert(make_pair(grado_, 1));
 }
 
-Polinomio::Polinomio(nat gr)
+Polinomio::Polinomio(nat gr):grado_(gr)
 {
-	grado_ = gr;
-	for(nat i = 0; i < gr; i++)
+	nat i;
+	for(i = 0; i < grado_; ++i)
+	{
 		m_.insert(make_pair(i,1));
+		cout << i << endl;
+	}
+	
+	grado_ = i;
+	std::cout << "grado: " << grado_ << std::endl;
 }
 
 Polinomio Polinomio::operator =(Polinomio& pol)

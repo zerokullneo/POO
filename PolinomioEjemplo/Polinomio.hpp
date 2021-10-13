@@ -10,7 +10,7 @@ using namespace std;
 class Polinomio
 {
 	public:
-		typedef int nat;
+		typedef unsigned int nat;
 		typedef map<nat,double> Monomios;
 		//Constructores.
 		Polinomio();

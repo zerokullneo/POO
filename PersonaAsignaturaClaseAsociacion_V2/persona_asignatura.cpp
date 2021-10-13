@@ -33,7 +33,7 @@ set<Persona*> PersonaImparteAsignatura::asociados(Asignatura& a) const
 	if (i != inversa.end())
 		return i->second;
 	else
-	return set<Persona*>();
+		return set<Persona*>();
 }
 
 /*void PersonaImparteAsignatura::mostrarAsignaturas(Persona& p) const

@@ -29,23 +29,29 @@
 
 
 #include "Polinomio.hpp"
+#include <sys/types.h>
 
-int main(int argc, char **argv)
+int main()
 {
-	Polinomio::nat g = 3, h = 4, i;
+	Polinomio::nat g = 3, h = 4, i = 0, j = 0;
 	Polinomio P1(g);
 	Polinomio P2(h);
 
-	Polinomio::Monomios::iterator it;
-
-	for(i = 0, it = P2.ver_polinomio().begin(); i < P2.ver_grado(); it++, i++)
-		cout << i << "-" << (*it).second << "x^" << (*it).first << endl;
+	//for(it = P2.ver_polinomio().begin(); it != P2.ver_polinomio().end(); i++, ++it)
+	for(const auto &itr : P2.ver_polinomio())
+	{
+		cout << i << "-. " << itr.second << "x^" << itr.first << "\n";
+		i++;
+	}
 
 	P1 += P2;
 
-	cout << "------------------" << endl;;
-	for(i = 0, it = P1.ver_polinomio().begin(); i < P1.ver_grado(); it++, i++)
-		cout << i << "-" << (*it).second << "x^" << (*it).first << endl;
+	cout << "------------------" << endl;
+	for(const auto &it : P1.ver_polinomio())
+	{
+		cout << j << "-. " << it.second << "x^" << it.first << "\n";
+		j++;
+	}
 
 	cout << "FIN" << endl;
 	return 0;
