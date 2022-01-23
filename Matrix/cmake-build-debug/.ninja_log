@@ -1,0 +1,4 @@
+# ninja log v5
+4	37	1642904364256450700	build.ninja	b504cc8f5a208d88
+1	559	1642903576428541600	CMakeFiles/Matrix.dir/mainMatrix.cpp.o	34eefaa83a99915d
+0	572	1642904379094829700	CMakeFiles/Matrix.dir/mainMatrix.cpp.o	34eefaa83a99915d
