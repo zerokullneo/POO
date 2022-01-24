@@ -1,4 +1,16 @@
 # ninja log v5
-4	37	1642904364256450700	build.ninja	b504cc8f5a208d88
-1	559	1642903576428541600	CMakeFiles/Matrix.dir/mainMatrix.cpp.o	34eefaa83a99915d
-0	572	1642904379094829700	CMakeFiles/Matrix.dir/mainMatrix.cpp.o	34eefaa83a99915d
+4	37	1643042852608747900	build.ninja	b504cc8f5a208d88
+723	807	1643042257006049300	Matrix	2765d0df6df51a45
+1	723	1643042256920959100	CMakeFiles/Matrix.dir/mainMatrix.cpp.o	34eefaa83a99915d
+0	3	0	clean	9151d28c13879cca
+0	4	0	clean	9151d28c13879cca
+1	628	1643042858360463200	CMakeFiles/Matrix.dir/matrix.cpp.o	91c8bcfc101944b6
+1	661	1643042858393022400	CMakeFiles/Matrix.dir/mainMatrix.cpp.o	34eefaa83a99915d
+0	3	0	clean	9151d28c13879cca
+1	645	1643042900843900200	CMakeFiles/Matrix.dir/mainMatrix.cpp.o	34eefaa83a99915d
+1	646	1643042900844010600	CMakeFiles/Matrix.dir/matrix.cpp.o	91c8bcfc101944b6
+646	733	1643042900931701600	Matrix	31b10a7b60cecba0
+0	4	0	clean	9151d28c13879cca
+1	686	1643043003280754700	CMakeFiles/Matrix.dir/matrix.cpp.o	91c8bcfc101944b6
+1	735	1643043003329254400	CMakeFiles/Matrix.dir/mainMatrix.cpp.o	34eefaa83a99915d
+735	834	1643043003428061200	Matrix	31b10a7b60cecba0

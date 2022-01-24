@@ -1,23 +1,12 @@
 #include "matrix.hpp"
-//Inserción de una matriz en un flujo de salida.
-ostream& operator <<(ostream& fs, const Matrix& a)
-{
-    for (size_t i = 0; i < a.filas(); ++i)
-    {
-        for (size_t j = 0; j < a.columnas(); ++j)
-            fs << a(i,j) << ' ';
-        fs << endl;
-    }
-    return fs;
-}
 
 int main()
 {
-    Matrix A(3, 3);
-    // Matriz nula de 3 x 3
+    Matrix A(3, 3); // Matriz nula de 3 x 3
     Matrix B(3, 3, 2.0); // Matriz de 3 x 3 con todos sus elementos a 2
-    Matrix C(3, 3, delta); // Matriz identidad de 3 x 3
-    Matrix D = {{1, 2, 3},
+    Matrix C(3, 3, delta(3,3)); // Matriz identidad de 3 x 3
+    Matrix D = {
+                {1, 2, 3},
                 {4, 5, 6},
                 {7, 8, 9}};
     A = C;

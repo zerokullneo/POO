@@ -4,12 +4,12 @@
 
 #include "matrix.hpp"
 
-// Constructor : matriz definida por una función
-Matrix::Matrix(size_t m, size_t n, double f(size_t i, size_t j)):m_(m), n_(n), d_(m_ * n_)
+// Constructor: matriz definida por una función
+Matrix::Matrix(size_t m, size_t n, double delta(size_t i, size_t j)):m_(m), n_(n), d_(m * n)
 {
     for (size_t i = 0; i < m_; ++i)
         for (size_t j = 0; j < n_; ++j)
-            (*this)(i, j) = f(i, j);
+            (*this)(i, j) = delta(i, j);
 }
 
 // Constructor desde lista de filas de la matriz (C++11)

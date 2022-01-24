@@ -55,12 +55,12 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="Matrix" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Matrix" TARGET_NAME="Matrix" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Matrix" RUN_TARGET_NAME="Matrix">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Matrix" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Matrix" TARGET_NAME="Matrix" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Matrix" RUN_TARGET_NAME="Matrix">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -76,6 +76,8 @@
       <updated>1642858512675</updated>
       <workItem from="1642858514092" duration="214000" />
       <workItem from="1642869342313" duration="15501000" />
+      <workItem from="1642904364565" duration="2217000" />
+      <workItem from="1643042127890" duration="871000" />
     </task>
     <servers />
   </component>

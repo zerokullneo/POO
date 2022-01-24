@@ -15,7 +15,7 @@ class Matrix
     public:
         //Constructores
         explicit Matrix(size_t m = 1, size_t n = 1, double d = 0.0);
-        Matrix(size_t m, size_t n, double f(size_t i, size_t j));
+        Matrix(size_t m, size_t n, double delta(size_t i, size_t j));
         Matrix(const initializer_list<valarray<double>>& l);
 
         //Copia y Movimiento
