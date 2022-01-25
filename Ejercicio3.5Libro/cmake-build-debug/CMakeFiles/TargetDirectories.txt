@@ -1,0 +1,3 @@
+/media/zerokullneo/Datos/Proyectos/POO/Ejercicio3.5Libro/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/media/zerokullneo/Datos/Proyectos/POO/Ejercicio3.5Libro/cmake-build-debug/CMakeFiles/edit_cache.dir
+/media/zerokullneo/Datos/Proyectos/POO/Ejercicio3.5Libro/cmake-build-debug/CMakeFiles/Ejercicio3_5Libro.dir
