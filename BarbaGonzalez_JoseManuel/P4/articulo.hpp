@@ -1,14 +1,8 @@
-/***************************************************************************
-* articulo.h
+/**
+* articulo.hpp
 *
-* lun abril 20 17:52:48 2015
-* Copyright 2015 Jose M Barba Gonzalez
-* <user@host>
-****************************************************************************/
-/*
-* articulo.h
-*
-* Copyright (C) 2015 - Jose M Barba Gonzalez
+* lun abril 20 17:52:48 2021
+* Copyright (C) 2021 - Jose M Barba Gonzalez
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by

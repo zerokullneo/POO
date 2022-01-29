@@ -1,33 +1,36 @@
-// cadena.cpp
-//
-// lun marzo 16 17:53:35 2021
-// Copyright 2021 Jose M Barba Gonzalez
-// <user@host>
-//
-// cadena.cpp
-//
-// Copyright (C) 2021 - Jose M Barba Gonzalez
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+/**
+ * cadena.cpp
+ *
+ * lun marzo 16 17:53:35 2021
+ * Copyright (C) 2021 - Jose M Barba Gonzalez
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include <locale>
 #include "cadena.hpp"
 
 using namespace std;
 
-/*CONSTRUCTORES*/
-//Constructor de conversión
+/**
+ * CONSTRUCTORES
+ */
+/**
+ * @brief Constructor de conversión.
+ * @param longitud parámetro longitud de la cadena.
+ * @param caracter parámetro inicializador de la cadena.
+ */
 Cadena::Cadena(unsigned int longitud, char caracter):tamano_(longitud)
 {
 	texto_= new char[tamano_ + 1];
@@ -43,7 +46,10 @@ Cadena::Cadena(unsigned int longitud, char caracter):tamano_(longitud)
 	}
 }
 
-//Constructor de espacios vacíos.
+/**
+ * Constructor de espacios vacíos.
+ * @param tamano parámetro longitud de la cadena.
+ */
 Cadena::Cadena(unsigned int tamano):tamano_(tamano)
 {
 	texto_ = new char[tamano_ + 1];
@@ -59,7 +65,10 @@ Cadena::Cadena(unsigned int tamano):tamano_(tamano)
 	}
 }
 
-//Constructor de copia de un objeto Cadena
+/**
+ * @brief Constructor de copia de un objeto Cadena.
+ * @param frase parámetro tipo Cadena para realizar la copia.
+ */
 Cadena::Cadena(const Cadena& frase):tamano_(frase.length())
 {
 	texto_ = new char[tamano_ + 1];
@@ -69,7 +78,10 @@ Cadena::Cadena(const Cadena& frase):tamano_(frase.length())
 		strncpy(texto_,frase.texto_, tamano_ + 1);
 }
 
-//Constructor de movimiento de un objeto Cadena
+/**
+ * @brief Constructor de movimiento de un objeto Cadena.
+ * @param frase parámetro tipo Cadena para realizar el movimiento.
+ */
 Cadena::Cadena(Cadena&& frase): texto_(frase.texto_), tamano_(frase.tamano_)
 {
     frase.texto_ = new char[1];
@@ -77,7 +89,10 @@ Cadena::Cadena(Cadena&& frase): texto_(frase.texto_), tamano_(frase.tamano_)
     frase.tamano_ = 0;
 }
 
-//Constructor de copia de una cadena a bajo nivel.
+/**
+ * @brief Constructor de copia de una cadena a bajo nivel.
+ * @param texto parámetro tipo cadena de bajo nivel para realizar la copia.
+ */
 Cadena::Cadena(const char* texto): tamano_(strlen(texto))
 {
 	texto_ = new char[tamano_ + 1];
@@ -87,7 +102,11 @@ Cadena::Cadena(const char* texto): tamano_(strlen(texto))
 	    strncpy(texto_, texto, tamano_ + 1);
 }
 
-//Constructor de una sub-cadena de bajo nivel char*.
+/**
+ * @brief Constructor de una sub-cadena de bajo nivel char*.
+ * @param texto parámetro cadena de bajo nivel.
+ * @param n parámetro que indica la cantidad de caracteres a copiar.
+ */
 Cadena::Cadena(const char* texto, size_t n): tamano_(n)
 {
     texto_= new char[tamano_ + 1];
@@ -101,7 +120,12 @@ Cadena::Cadena(const char* texto, size_t n): tamano_(n)
     }
 }
 
-//Constructor de una sub-cadena desde una posicion sobre un objeto Cadena.
+/**
+ * @brief Constructor de una sub-cadena desde una posición sobre un objeto Cadena.
+ * @param frase parámetro tipo Cadena para realizar la copia.
+ * @param pos parámetro que indica la posición inicial de la copia.
+ * @param n parámetro que indica la cantidad de caracteres a copiar.
+ */
 Cadena::Cadena(const Cadena& frase, unsigned int pos, size_t n)
 {
     frase.at(pos);
@@ -121,7 +145,11 @@ Cadena::Cadena(const Cadena& frase, unsigned int pos, size_t n)
     }
 }
 
-//Constructor de uns sub-cadena de un objeto Cadena de un tamaño determinado.
+/**
+ * @brief Constructor de uns sub-cadena de un objeto Cadena de un tamaño determinado.
+ * @param frase parámetro tipo Cadena para realizar la copia.
+ * @param pos parámetro que indica la posición inicial de la copia.
+ */
 Cadena::Cadena(const Cadena& frase, unsigned int pos): tamano_(frase.length() - pos)
 {
     frase.at(pos);
@@ -135,11 +163,19 @@ Cadena::Cadena(const Cadena& frase, unsigned int pos): tamano_(frase.length() - 
         texto_[tamano_] = '\0';
     }
 }
-/*FIN CONSTRUCTORES*/
+/**
+ * -------------------------FIN CONSTRUCTORES-----------------------------------
+ */
 
-/*OPERADORES*/
+/**
+ * -----------------------------OPERADORES--------------------------------------
+ */
 
-//se suma al 'texto_' existente la nueva 'frase'
+/**
+ * @brief operador sobrecargado para la concatenación de Cadenas.
+ * @param frase parámetro tipo Cadena a añadir.
+ * @return devuelve el objeto cadena con la concatenación de la Cadena recibida.
+ */
 Cadena& Cadena::operator +=(const Cadena& frase) noexcept
 {
 	char* texto_aux = new char[tamano_+1];
@@ -152,6 +188,11 @@ Cadena& Cadena::operator +=(const Cadena& frase) noexcept
 	return *this;
 }
 
+/**
+ * @brief operador sobrecargada para la asignación por conversión de cadena de bajo nivel a Cadena.
+ * @param texto parámetro de cadena de bajo nivel a asignar.
+ * @return devuelve una Cadena construida por asignación.
+ */
 Cadena& Cadena::operator =(const char* texto) noexcept
 {
 	tamano_ = strlen(texto);
@@ -163,6 +204,11 @@ Cadena& Cadena::operator =(const char* texto) noexcept
 	return *this;
 }
 
+/**
+ * @brief operador sobrecargado para la asignación de copia de Cadena.
+ * @param frase parámetro tipo Cadena a asignar.
+ * @return devuelve una Cadena construida por asignación.
+ */
 Cadena& Cadena::operator =(const Cadena& frase) noexcept
 {
 	tamano_ = frase.length();
@@ -172,7 +218,11 @@ Cadena& Cadena::operator =(const Cadena& frase) noexcept
 	return *this;
 }
 
-//Asignacion de movimiento
+/**
+ * @brief operador sobrecargado para la asignación de movimiento de Cadena.
+ * @param frase parámetro tipo Cadena a mover.
+ * @return devuelve una Cadena construida por asignación.
+ */
 Cadena& Cadena::operator =(Cadena&& frase) noexcept
 {
     tamano_ = frase.tamano_;
@@ -183,73 +233,38 @@ Cadena& Cadena::operator =(Cadena&& frase) noexcept
     return *this;
 }
 
+/**
+ * @brief operador [] sobrecargado para la extracción de una posición determinada.
+ * @param i parámetro que indica la posición a extraer.
+ * @return devuelve la dirección de la posición.
+ */
 char& Cadena::operator [](unsigned int i) noexcept
 {
     return texto_[i];
 }
 
+/**
+ * @brief operador [] sobrecargado para la extracción del contenida de una posición determinada.
+ * @param i parámetro que indica la posición a extraer.
+ * @return devuelve el contenido de la posición.
+ */
 char Cadena::operator [](unsigned int i) const noexcept
 {
     return texto_[i];
 }
+/**
+ * ------------------------------FIN OPERADORES----------------------------------
+ */
 
-Cadena operator +(const Cadena& texto1,const Cadena& texto2)
-{
-	Cadena frase(texto1);
-	frase += texto2;
-	return frase;
-}
-
-bool operator ==(const Cadena& texto1,const Cadena& texto2)
-{
-	if(strcmp(texto1.c_str(),texto2.c_str()) == 0)
-		return true;
-	else
-		return false;
-}
-
-bool operator !=(const Cadena& texto1,const Cadena& texto2)
-{
-	if(strcmp(texto1.c_str(),texto2.c_str()) != 0)
-		return true;
-	else
-		return false;
-}
-
-bool operator >=(const Cadena& texto1,const Cadena& texto2)
-{
-	if(strcmp(texto1.c_str(),texto2.c_str()) >= 0)
-		return true;
-	else
-		return false;
-}
-
-bool operator >(const Cadena& texto1,const Cadena& texto2)
-{
-	if(strcmp(texto1.c_str(),texto2.c_str()) > 0)
-		return true;
-	else
-		return false;
-}
-
-bool operator <=(const Cadena& texto1,const Cadena& texto2)
-{
-	if(strcmp(texto1.c_str(),texto2.c_str()) <= 0)
-		return true;
-	else
-		return false;
-}
-
-bool operator <(const Cadena& texto1,const Cadena& texto2)
-{
-	if(strcmp(texto1.c_str(),texto2.c_str()) < 0)
-		return true;
-	else
-		return false;
-}
-/*FIN OPERADORES*/
-
-/*SUBCADENA*/
+/**
+ * ---------------------------------SUBCADENA-------------------------------------
+ */
+/**
+ * @brief Funcion que extrae una subcadena dentro de otra.
+ * @param inicio parámetro que indica el indice donde comenzara a contar.
+ * @param num_caracteres parámetro que indica la cantidad de caracteres a contar.
+ * @return devuelve una Cadena con la subcadena extraida.
+ */
 Cadena Cadena::substr(size_t inicio, size_t num_caracteres) const /*noexcept(false)const throw(out_of_range)*/
 {
 	if((inicio < tamano_) /*and (num_caracteres > 0)*/ and (num_caracteres <= (tamano_ - inicio)))
@@ -265,17 +280,21 @@ Cadena Cadena::substr(size_t inicio, size_t num_caracteres) const /*noexcept(fal
 		throw std::out_of_range("Error substr: caracteres fuera de rango.");
 }
 
-//at Leer caracter
-//char Cadena::at(unsigned int i) noexcept(false)/*const throw(out_of_range)*/
-//{
-//    if((i >= 0 and i <= tamano_) and (tamano_ > 0))
-//        return texto_[i];
+/**at Leer caracter
+char Cadena::at(unsigned int i) noexcept(false)const throw(out_of_range)
+{
+    if((i >= 0 and i <= tamano_) and (tamano_ > 0))
+        return texto_[i];
 
-//    else
-//        throw std::out_of_range("Error read at: posicion fuera de rango.");
-//}
+    else
+        throw std::out_of_range("Error read at: posicion fuera de rango.");
+}*/
 
-//at Escribir caracter
+/**
+ * @brief operador at sobrecargado para escribir carácter en una posición determinada.
+ * @param i parámetro que indica la posición a extraer.
+ * @return devuelve el contenido de la posición.
+ */
 char& Cadena::at(unsigned int i) const
 {
     if((i >= 0 and i <= tamano_) and (tamano_ > 0))
@@ -284,59 +303,212 @@ char& Cadena::at(unsigned int i) const
     else
         throw std::out_of_range("Error write at: posicion fuera de rango.");
 }
-/*FIN SUBCADENA*/
+/**
+ * --------------------------------FIN SUBCADENA----------------------------------------
+ */
 
-/*OPERACIONES SOBRE ITERADORES*/
+/**
+ * -------------------OPERACIONES SOBRE ITERADORES--------------------------
+ */
+/**
+ * @brief iterador de comienzo.
+ * @return devuelve el iterador actual.
+ */
 Cadena::iterator Cadena::begin() const noexcept
 {
     return &texto_[0];
 }
 
+/**
+ * @brief iterador de final.
+ * @return devuelve el iterador actual.
+ */
 Cadena::iterator Cadena::end() const noexcept
 {
     return &texto_[tamano_];
 }
 
+/**
+ * @brief iterador constante de comienzo.
+ * @return devuelve el iterador actual.
+ */
 Cadena::const_iterator Cadena::cbegin() const noexcept
 {
     return &texto_[0];
 }
 
+/**
+ * @brief iterador constante de final.
+ * @return devuelve el iterador actual.
+ */
 Cadena::const_iterator Cadena::cend() const noexcept
 {
     return &texto_[tamano_];
 }
 
+/**
+ * @brief iterador de comienzo reverso.
+ * @return devuelve el iterador actual.
+ */
 Cadena::reverse_iterator Cadena::rbegin() const noexcept
 {
     return reverse_iterator(end());
 }
 
+/**
+ * @brief iterador de final reverso.
+ * @return devuelve el iterador actual.
+ */
 Cadena::reverse_iterator Cadena::rend() const noexcept
 {
     return reverse_iterator(begin());
 }
 
+/**
+ * @brief iterador constante de comienzo reverso.
+ * @return devuelve el iterador actual.
+ */
 Cadena::const_reverse_iterator Cadena::crbegin() const noexcept
 {
     return const_reverse_iterator(end());
 }
 
+/**
+ * @brief iterador constante de final reverso.
+ * @return devuelve el iterador actual.
+ */
 Cadena::const_reverse_iterator Cadena::crend() const noexcept
 {
     return const_reverse_iterator(begin());
 }
-/*FIN OPERACIONES SOBRE ITERADORES*/
+/**
+ * ------------------------FIN OPERACIONES SOBRE ITERADORES-------------------------------
+ */
 
-/*OPERADORES DE FLUJO*/
-/** Inserccion */
+/**
+ * ------------------------------OPERADORES EXTERNOS--------------------------------------
+ */
+/**
+ * @brief Sobrecarga el operador suma para poder unir dos clase Cadena.
+ * @param texto1 parámetro que recoge la Cadena l-valor para la concatenación.
+ * @param texto2 parámetro que recoge la Cadena r-valor para la concatenación.
+ * @return devuelve el objeto Cadena con la unión de texta1 y texto2.
+ */
+Cadena operator +(const Cadena& texto1,const Cadena& texto2)
+{
+    Cadena frase(texto1);
+    frase += texto2;
+    return frase;
+}
+
+/**
+ * @brief Sobrecarga el operador Igualdad para poder comparar dos clases Cadena.
+ * @param texto1 parámetro que recoge la Cadena l-valor para la comparación.
+ * @param texto2 parámetro que recoge la Cadena r-valor para la comparación.
+ * @return devuelve true si texto1 es igual que texto2 y false en caso contrario.
+ */
+bool operator ==(const Cadena& texto1,const Cadena& texto2)
+{
+    if(strcmp(texto1.c_str(),texto2.c_str()) == 0)
+        return true;
+    else
+        return false;
+}
+
+/**
+ * @brief Sobrecarga el operador Distinto para poder comparar dos clases Cadena.
+ * @param texto1 parámetro que recoge la Cadena l-valor para la comparación.
+ * @param texto2 parámetro que recoge la Cadena r-valor para la comparación.
+ * @return devuelve true si texto1 es distinto que texto2 y false en caso contrario.
+ */
+bool operator !=(const Cadena& texto1,const Cadena& texto2)
+{
+    if(strcmp(texto1.c_str(),texto2.c_str()) != 0)
+        return true;
+    else
+        return false;
+}
+
+/**
+ * @brief Sobrecarga el operador MayorIgual para poder comparar dos clases Cadena.
+ * @param texto1 parámetro que recoge la Cadena l-valor para la comparación.
+ * @param texto2 parámetro que recoge la Cadena r-valor para la comparación.
+ * @return devuelve true si texto1 es mayor o igual que texto2 y false en caso contrario.
+ */
+bool operator >=(const Cadena& texto1,const Cadena& texto2)
+{
+    if(strcmp(texto1.c_str(),texto2.c_str()) >= 0)
+        return true;
+    else
+        return false;
+}
+
+/**
+ * @brief Sobrecarga el operador Mayor para poder comparar dos clases Cadena.
+ * @param texto1 parámetro que recoge la Cadena l-valor para la comparación.
+ * @param texto2 parámetro que recoge la Cadena r-valor para la comparación.
+ * @return devuelve true si texto1 es mayor que texto2 y false en caso contrario.
+ */
+bool operator >(const Cadena& texto1,const Cadena& texto2)
+{
+    if(strcmp(texto1.c_str(),texto2.c_str()) > 0)
+        return true;
+    else
+        return false;
+}
+
+/**
+ * @brief Sobrecarga el operador MenorIgual para poder comparar dos clases Cadena.
+ * @param texto1 parámetro que recoge la Cadena l-valor para la comparación.
+ * @param texto2 parámetro que recoge la Cadena r-valor para la comparación.
+ * @return devuelve true si texto1 es menor o igual que texto2 y false en caso contrario.
+ */
+bool operator <=(const Cadena& texto1,const Cadena& texto2)
+{
+    if(strcmp(texto1.c_str(),texto2.c_str()) <= 0)
+        return true;
+    else
+        return false;
+}
+
+/**
+ * @brief Sobrecarga el operador Menor para poder comparar dos clases Cadena.
+ * @param texto1 parámetro que recoge la Cadena l-valor para la comparación.
+ * @param texto2 parámetro que recoge la Cadena r-valor para la comparación.
+ * @return devuelve true si texto1 es menor que texto2 y false en caso contrario.
+ */
+bool operator <(const Cadena& texto1,const Cadena& texto2)
+{
+    if(strcmp(texto1.c_str(),texto2.c_str()) < 0)
+        return true;
+    else
+        return false;
+}
+/**
+ * ------------------------------FIN OPERADORES EXTERNOS-----------------------------------
+ */
+
+/**
+ * -------------------------------OPERADORES DE FLUJO------------------------------------
+ */
+/**
+ * @brief Sobrecarga el operador Flujo de Salida para que la Cadena sea legible por pantalla.
+ * @param out parámetro flujo de salida l-valor.
+ * @param texto parámetro Cadena de entrada r-valor.
+ * @return devuelve el flujo os modificado para una salida personalizada.
+ */
 ostream& operator <<(ostream& out,const Cadena& texto)
 {
 	out << texto.c_str();
 	return out;
 }
 
-/** Extraccion */
+/**
+ * @brief Sobrecarga el operador Flujo de Entrada para construir una Cadena de forma directa.
+ * @param in parámetro flujo de entrada l-valor.
+ * @param texto parámetro Cadena de entrada r-valor.
+ * @return devuelve el flujo is de entrada para una construcción personalizada.
+ */
 istream& operator >>(istream& in, Cadena& texto)
 {
 	//calcular la longitud del stream "in"
@@ -379,4 +551,6 @@ istream& operator >>(istream& in, Cadena& texto)
 		return in;
 	}
 }
-/*FIN OPERADORES DE FLUJO*/
+/**
+ * --------------------------------FIN OPERADORES DE FLUJO-------------------------------
+ */
