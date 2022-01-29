@@ -1,35 +1,30 @@
-// tarjeta.cpp
-//
-// lun abril 20 17:37:48 2015
-// Copyright 2015 Jose M Barba Gonzalez
-// <user@host>
-//
-// tarjeta.cpp
-//
-// Copyright (C) 2015 - Jose M Barba Gonzalez
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
+/**
+ * tarjeta.cpp
+ *
+ * lun abril 20 17:37:48 2021
+ *
+ * Copyright (C) 2021 - Jose M Barba Gonzalez
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-/*#include <unicode/unistr.h>
-#include <unicode/ustream.h>
-#include <unicode/locid.h>*/
 #include "tarjeta.hpp"
-#include "usuario.hpp"
+//#include "usuario.hpp"
 
 /*VALIDACIÓN DEL NÚMERO DE TARJETA*/
 
-bool luhn(const Cadena& numero/*, size_t n*/);
+bool luhn(const Cadena& numero);
 
 /*FIN VALIDACIÓN*/
 
@@ -74,12 +69,10 @@ Numero::Numero(const Cadena& n): numero_(n)
 	}
 }
 */
+
 bool operator <(const Numero& n1, const Numero& n2)
 {
-	if(strcmp( n1.numero_.c_str(), n2.numero_.c_str()) < 0)
-		return true;
-	else
-		return false;
+	return (strcmp( n1.numero_.c_str(), n2.numero_.c_str()) < 0);
 }
 /*FIN CLASE NUMERO*/
 
@@ -90,6 +83,7 @@ Tarjeta::Tarjeta(const Numero& tjt, Usuario& usuario, const Fecha& f_cad):
 tarjeta_(tjt), titular_(&usuario), f_caducidad_(f_cad), titular_facial_((usuario.nombre() + " " + usuario.apellidos())), activa_(true)
 {
     const Fecha f_hoy;
+
     if((f_hoy > f_cad) == true)
         throw Caducada(f_cad);
        
@@ -158,23 +152,16 @@ Tarjeta::~Tarjeta()
     }
     this->numeros_.erase(tarjeta_);
 }
-/*FIN CLASE TARJETA*/
 
 /*OPERADORES*/
 bool operator <(const Tarjeta& t1, const Tarjeta& t2)
 {
-    if(strcmp(t1.numero(), t2.numero()) < 0)
-        return true;
-    else
-        return false;
+    return (strcmp(t1.numero(), t2.numero()) < 0);
 }
 
 bool operator ==(const Tarjeta& t1, const Tarjeta& t2)
 {
-    if(strcmp(t1.numero(), t2.numero()) == 0)
-        return true;
-    else
-        return false;
+	return (strcmp(t1.numero(), t2.numero()) == 0);
 }
 
 ostream& operator <<(ostream& out, const Tarjeta& tjt)
@@ -197,27 +184,28 @@ ostream& operator <<(ostream& out, const Tarjeta::Tipo& tipo)
 	switch(tipo)
 	{
 		case Tarjeta::VISA:
-			out << "VISA" << endl;
+			out << "VISA";
 			break;
 		case Tarjeta::Mastercard:
-			out << "MasterCard" << endl;
+			out << "MasterCard";
 			break;
 		case Tarjeta::Maestro:
-			out << "Maestro" << endl;
+			out << "Maestro";
 			break;
 		case Tarjeta::AmericanExpress:
-			out << "AmericanExpress" << endl;
+			out << "AmericanExpress";
 			break;
 		case Tarjeta::JCB:
-			out << "JCB" << endl;
+			out << "JCB";
 			break;
 		case Tarjeta::Otro:
-			out << "Otro" << endl;
+			out << "Otro";
 			break;
 		default:
-			out << "Error, tarjeta desconocida" << endl;
+			out << "Error, tarjeta desconocida";
 			break;
 	}
 
 	return out;
 }
+/*FIN CLASE TARJETA*/

@@ -1,8 +1,7 @@
-# $Id: Make_check.mk 416 2018-04-23 08:38:49Z u44965478 $
-# Comprobaciones de código para P4
-# ©2015 Pedro Delgado, para POO
-# ©2017 - Simplificación - Gerardo
-# ©2020 - usuario-pedido.cpp (no hpp) - Gerardo
+#	$Id: Make_check.mk 411 2018-04-04 16:04:49Z u44965478 $
+# Makefile para las comprobaciones estáticas de código fuente
+# de cadena.cpp y fecha.cpp, clases Cadena y Fecha, de la P1
+# ©2017 Los profesores de POO de la ESI de la UCA
 # ©2021 Gerardo - La Gran Unificación
 
 # V. comentario en Makefile
@@ -13,7 +12,7 @@ endif
 # Directorio donde está el código compartido del DSL
 DIR=../dsl-comprobaciones/
 
-# Obligatorio Clang, versión 3.9 al menos.
+# Obligatorio Clang, versión 9 al menos
 CXX         := clang++
 CPPFLAGS    := -I${DIR} -D$P $(shell llvm-config --cppflags)
 CXXFLAGS    := -std=c++17
@@ -21,42 +20,36 @@ CXXFLAGS    := -std=c++17
 # estáticamente muy grande y pesado pero que se puede distribuir al 
 # alumnado para que no tengan que instalarse todos los paquetes de 
 # desarrollo de LLVM/CLang.
-LDFLAGS     := $(shell llvm-config --libs) # -static
+LDFLAGS     := $(shell llvm-config --libs) #-static
 COMMONSRCS  := $(DIR)caclibrary.cpp $(DIR)execute.cpp $(DIR)matchers.cpp
-OWNSOURCE   := libreria_check.cpp
-SOURCES     := $(OWNSOURCE) ${COMMONSRCS}
+OWNSOURCE   := fecha_cadena_check.cpp
+SOURCES     := ${OWNSOURCE} ${COMMONSRCS}
 COMMONHDRS  := $(COMMONSRCS:.cpp=.h) $(DIR)info.h
 COMMONOBJS  := $(COMMONSRCS:.cpp=.o)
 OBJECT      := $(OWNSOURCE:.cpp=.o)
 EXE         := $(OWNSOURCE:.cpp=)
-VERIFYSRCS   = articulo.cpp tarjeta.cpp usuario.cpp
-ifneq ($P, P2)
-VERIFYSRCS  += pedido.cpp pedido-articulo.cpp usuario-pedido.cpp
-endif
-CLANGLIBS   := -lclangFrontend -lclangSerialization -lclangDriver      \
+CLANGLIBS   := -lclangFrontend -lclangSerialization -lclangDriver \
 		-lclangTooling -lclangParse -lclangSema -lclangAnalysis \
-		-lclangEdit -lclangAST -lclangASTMatchers -lclangLex     \
+		-lclangEdit -lclangAST -lclangASTMatchers -lclangLex \
 		-lclangBasic -lclangRewrite
 
-.PHONY: clean all allclean check
-
+.PHONY: clean all check
 all: $(EXE)
 
-${EXE}: $(OBJECT) $(COMMONOBJS)
+${EXE}: ${OBJECT} $(COMMONOBJS)
 	$(CXX) -o $@ $^ $(LDFLAGS) $(CLANGLIBS)
 
-${COMMONOBJS}: ${COMMONHDRS}
+${COMMONOBJS}: ${COMMONHDRS} ${COMMONSRCS}
 	${MAKE} --file=$(DIR)Makefile --directory=${DIR}
 
-$(OWNSOURCE): ${COMMONOBJS} $(COMMONHDRS)
-
 check: ${EXE}
-	@echo Verificando los fuentes ...
-	./${EXE} -extra-arg-before="-I../P1" -extra-arg="-std=c++17" \
-          ${VERIFYSRCS} -- -D$P
+	@echo Verificando fecha.cpp y cadena.cpp ...
+	./fecha_cadena_check -extra-arg-before="-D$P" -extra-arg="-std=c++17" \
+	fecha.cpp cadena.cpp --
 
 clean:
+	@echo "Limpiando."
 	${RM} ${RMFLAGS} $(EXE) $(OBJECT)
 
 allclean: clean
-	${RM} ${RMFLAGS} ${COMMONOBJS}
+	${MAKE} --file=$(DIR)Makefile --directory=$(DIR) clean

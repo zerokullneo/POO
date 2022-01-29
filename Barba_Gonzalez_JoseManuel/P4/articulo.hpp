@@ -1,14 +1,8 @@
-/***************************************************************************
-* articulo.h
+/**
+* articulo.hpp
 *
-* lun abril 20 17:52:48 2015
-* Copyright 2015 Jose M Barba Gonzalez
-* <user@host>
-****************************************************************************/
-/*
-* articulo.h
-*
-* Copyright (C) 2015 - Jose M Barba Gonzalez
+* lun abril 20 17:52:48 2021
+* Copyright (C) 2021 - Jose M Barba Gonzalez
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -39,9 +33,9 @@ class Autor
 		Autor(Cadena nom, Cadena apll, Cadena dir):nombre_(nom), apellidos_(apll), direccion_(dir){};
 
 		//Métodos observadores de los atributos.
-		Cadena nombre()const {return nombre_;}
-		Cadena apellidos()const {return apellidos_;}
-		Cadena direccion()const {return direccion_;}
+		const Cadena nombre() const noexcept {return nombre_;}
+		const Cadena apellidos() const noexcept {return apellidos_;}
+		const Cadena direccion() const noexcept {return direccion_;}
 
 	private:
 		Cadena nombre_;
@@ -51,97 +45,97 @@ class Autor
 
 class Articulo
 {
-    public:
-        typedef set<Autor*> Autores;
+	public:
+		typedef set<Autor*> Autores;
 
-        class Autores_vacios
-        {
-            public:
-            Autores_vacios(){};
-        };
-        //Métodos observadores
-        Cadena referencia()const{return referencia_;}
-        Cadena titulo()const{return titulo_;}
-        Fecha f_publi()const{return f_publi_;}
-        double precio()const{return precio_;}
-        virtual unsigned int stock()const{return stock_;}
-        const Autores& autores()const{return autores_;}
+		class Autores_vacios
+		{
+			
+		};
+		//Constructor
+		Articulo(const Autores& aut, const Cadena& refr, const Cadena& tit, const Fecha& fec, double pvp);
 
-        //Métodos modificadores modifica el atributo precio_ con el nuevo valor indicado en pvp.
-        void precio(double& pvp){precio_ = pvp;}
-        double& precio(){return precio_;}
-        //modifica el atributo stock_ con el nuevo valor indicado en stk.
-        virtual void stock(unsigned int& stk){stock_ = stk;}
-        virtual unsigned int& stock(){return stock_;}
-        virtual ostream& impresion_especifica(ostream&) const = 0;
-        virtual ~Articulo(){};
+		//Métodos observadores
+		const Cadena referencia() const noexcept {return referencia_;}
+		const Cadena titulo() const noexcept {return titulo_;}
+		const Fecha f_publi() const noexcept {return f_publi_;}
+		const double precio() const noexcept {return precio_;}
+		const Autores& autores() const noexcept {return autores_;}
 
-   protected:
-        //Constructores -
-        Articulo(const Autores& aut, const Cadena& refr, const Cadena& tit, const Fecha& fec, double pvp, unsigned int stk=1);
+		//Métodos modificadores modifica el atributo precio_ con el nuevo valor indicado en pvp.
+		double& precio(){return precio_;}
 
-    private:
-        Autores autores_;
-        Cadena referencia_;
-        Cadena titulo_;
-        Fecha f_publi_;
-        double precio_;
-        unsigned int stock_;
+		virtual void impresion_especifica(ostream&) const = 0;
+		virtual ~Articulo(){};
+
+ 	protected:
+ 		Autores autores_;
+ 		Cadena referencia_;
+ 		Cadena titulo_;
+ 		Fecha f_publi_;
+ 		double precio_;
 };
 
 class ArticuloAlmacenable: public Articulo
 {
-    public:
-        //Método Observador del stock del artículo.
-         unsigned int stock()const{return stockAA_;}
-        //Método Modificador del stock del artículo.
-         void stock(unsigned int& stk){stockAA_ = stk;}
-         unsigned int& stock(){return stockAA_;}
+	public:
+		//Constructores -
+		ArticuloAlmacenable(const Autores& a, const Cadena& r, const Cadena& t, const Fecha& f, double p, unsigned int s=0);
+		virtual ~ArticuloAlmacenable() {}
 
-    protected:
-        //Constructores -
-        ArticuloAlmacenable(const Autores& a, const Cadena& r, const Cadena& t, const Fecha& f, double p, unsigned int s=1);
-        virtual ~ArticuloAlmacenable() {}
+		//Método Observador del stock del artículo.
+		const unsigned int stock() const noexcept {return stock_;}
+		
+		//Método Modificador del stock del artículo.
+		unsigned int& stock() {return stock_;}
 
-    private:
-        unsigned int stockAA_;
+	protected:
+		unsigned int stock_;
 };
 
 
 class LibroDigital: public Articulo
 {
-    public:
-        LibroDigital(const Autores& a, const Cadena& r, const Cadena& t, const Fecha& f, double p, const Fecha& e);
-        //Método observador de la fecha de expiración.
-        const Fecha& f_expir()const{return expiracion_;}
-        //Operador de flujo de salida con el formato de fecha día de mes de aaaa.
-        ostream& impresion_especifica(ostream&)const;
-    private:
-        Fecha expiracion_;
+	public:
+		LibroDigital(const Autores& a, const Cadena& r, const Cadena& t, const Fecha& f, double p, const Fecha& e);
+
+		//Método observador de la fecha de expiración.
+		const Fecha& f_expir() const noexcept {return expiracion_;}
+
+		//Operador de flujo de salida con el formato de fecha día de mes de aaaa.
+		void impresion_especifica(ostream&)const;
+
+	private:
+		Fecha expiracion_;
 };
 
 
 class Libro: public ArticuloAlmacenable
 {
-    public:
-        Libro(const Autores& a, const Cadena& r, const Cadena& t, const Fecha& f, double p, unsigned int pg, unsigned int s=1);
-        //Método observador de Número de Páginas de un Libro.
-        unsigned int n_pag()const{return paginas_;}
-        //Operador de flujo de salida con el formato "paginas, unidades" de un Libro
-        ostream& impresion_especifica(ostream&)const;
-    private:
-        unsigned int paginas_;
+	public:
+		Libro(const Autores& a, const Cadena& r, const Cadena& t, const Fecha& f, double p, unsigned int pg, unsigned int s=1);
+        
+		//Método observador de Número de Páginas de un Libro.
+		const unsigned int n_pag() const noexcept {return paginas_;}
+        
+		//Operador de flujo de salida con el formato "paginas, unidades" de un Libro
+		void impresion_especifica(ostream&) const;
+
+	private:
+		unsigned int paginas_;
 };
 
 
-class Cederron:public ArticuloAlmacenable
+class Cederron: public ArticuloAlmacenable
 {
     public:
         Cederron(const Autores& a, const Cadena& r, const Cadena& t, const Fecha& f, double p, unsigned tm, unsigned int s=1);
+
         //Método observador del tamaño en MB de un CD.
-        unsigned tam()const{return tamano_;}
+        const unsigned tam() const noexcept {return tamano_;}
+
         //Operador de flujo de salida con el formato "MB, unidades" de un CD
-        ostream& impresion_especifica(ostream&)const;
+        void impresion_especifica(ostream&)const;
 
     private:
         unsigned tamano_;

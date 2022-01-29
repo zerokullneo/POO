@@ -1,28 +1,23 @@
-/***************************************************************************
-* usuario.h
-*
-* lun abril 20 17:47:48 2015
-* Copyright 2015 Jose M Barba Gonzalez
-* <user@host>
-****************************************************************************/
-/*
-* usuario.h
-*
-* Copyright (C) 2015 - Jose M Barba Gonzalez
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
+/**
+ * usuario.hpp
+ *
+ * lun abril 20 17:47:48 2021
+ *
+ * Copyright (C) 2021 - Jose M Barba Gonzalez
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef USUARIO_H
 #define USUARIO_H
@@ -30,6 +25,7 @@
 #include <random>
 #include <set>
 #include <map>
+#include <unordered_map>
 #include "cadena.hpp"
 #include "fecha.hpp"
 #include "articulo.hpp"
@@ -59,7 +55,7 @@ class Clave
         //constructor
         Clave(const char* clav);
         //método observador
-        const Cadena clave() const {return clave_;}
+        const Cadena clave() const noexcept {return clave_;}
         //método verificador
         bool verifica(const char* pass) const noexcept;
 
@@ -96,14 +92,14 @@ class Usuario
         Usuario& operator =(const Usuario&)=delete;
 
         //Métodos observadores de los atributos.
-        const Cadena id()const {return identificador_;}
-        const Cadena nombre()const {return nombre_;}
-        const Cadena apellidos()const {return apellidos_;}
-        const Cadena direccion()const {return direccion_;}
-        const Clave clave()const {return contrasenia_;}
-        const size_t n_articulos()const{return articulos_.size();}
-        const Tarjetas& tarjetas()const{return tarjetas_;}
-        const Articulos& compra()const{return articulos_;}
+        const Cadena id() const noexcept {return identificador_;}
+        const Cadena nombre() const noexcept {return nombre_;}
+        const Cadena apellidos() const noexcept {return apellidos_;}
+        const Cadena direccion() const noexcept {return direccion_;}
+        const Clave clave() const noexcept {return contrasenia_;}
+        const size_t n_articulos() const noexcept {return articulos_.size();}
+        const Tarjetas& tarjetas() const noexcept {return tarjetas_;}
+        const Articulos& compra() const noexcept {return articulos_;}
 
         //Métodos modificadores
         void es_titular_de(Tarjeta& T) noexcept;

@@ -1,25 +1,23 @@
-// usuario.cpp
-//
-// lun abril 20 17:47:48 2015
-// Copyright 2015 Jose M Barba Gonzalez
-// <user@host>
-//
-// usuario.cpp
-//
-// Copyright (C) 2015 - Jose M Barba Gonzalez
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+/**
+ * usuario.cpp
+ *
+ * lun abril 20 17:47:48 2021
+ *
+ * Copyright (C) 2021 - Jose M Barba Gonzalez
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #define _XOPEN_SOURCE
 #include <unistd.h>
@@ -33,19 +31,20 @@ Clave::Clave(const char* pass)
 	if(strlen(pass) < 5)//clave demasiado corta
 		throw Clave::Incorrecta(Clave::CORTA);
 
-	static char const charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
+	static const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 	static std::random_device generator; // generador de números aleatorios
 	static std::uniform_int_distribution<std::size_t> distribution(0, 63); // distribución uniforme de size_t entre 0 y 63
 
 	//devuelve un número aleatorio distribuido uniformemente entre 0 y 63 usando el generador dentro de la distribucion
-	char salt[2] = { charset[distribution(generator)], charset[distribution(generator)]};
+	const char salt[2] = { charset[distribution(generator)], charset[distribution(generator)]};
 
-	char* cifrada = crypt(pass, salt);
+	const char* cifrada = crypt(pass, salt);
 
 	if(cifrada == nullptr) //crypt no esta implementado en mi sistema
 		throw Clave::Incorrecta(Razon::ERROR_CRYPT);
 	if(strlen(cifrada) < 13)//sal incorrecta, caracteres invalidos
 		throw Clave::Incorrecta(Razon::ERROR_CRYPT);
+
 	clave_ = cifrada;
 }
 
@@ -85,7 +84,7 @@ void Usuario::no_es_titular_de(Tarjeta& T) noexcept
 
 void Usuario::compra(Articulo& A, unsigned i) noexcept
 {
-    if(i == 0)//si se recibe un 0 como cantidad se vacía el carro.
+    if(i == 0)//si se recibe un 0 como cantidad se quita el artículo del carro.
         articulos_.erase(&A);
     else
     {
@@ -106,7 +105,7 @@ Usuario::~Usuario()
 /*Inserccion en flujo*/
 ostream& operator <<(ostream& out, const Usuario& u)
 {
-    out << u.id() << " [" << u.clave().clave() << "] " << u.nombre() << " " << u.apellidos() << endl << u.direccion() << endl << "Tarjetas:\n";
+    out << u.id() << " [" << u.clave().clave() << "] " << u.nombre() << " " << u.apellidos() << endl << u.direccion() << endl << "Tarjetas:" << endl;
 
     for(Usuario::Tarjetas::const_iterator it = u.tarjetas().begin(); it != u.tarjetas().end(); it++)
         out << *((*it).second) << endl;
@@ -116,12 +115,12 @@ ostream& operator <<(ostream& out, const Usuario& u)
 
 ostream& mostrar_carro(ostream& out, const Usuario& u)
 {
-    out << "Carrito de compras de " << u.id() << " [Artículos: " << u.n_articulos() << "]\n";
+    out << "Carrito de compra de " << u.id() << " [Artículos: " << u.n_articulos() << "]" << endl;
 
     if(u.n_articulos() != 0)
     {
-        out << " Cant. Artículo\n";
-        out << "=======================================================================\n";
+        out << " Cant. Artículo" << endl;
+        out << "=======================================================================" << endl;
         for(Usuario::Articulos::const_iterator it = u.compra().begin(); it != u.compra().end(); it++)
         {
             out << (*it).second << " " << "[" << it->first->referencia() << "] \"" << it->first->titulo() << "\", " << it->first->f_publi().anno();

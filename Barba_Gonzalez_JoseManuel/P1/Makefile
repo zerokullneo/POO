@@ -1,5 +1,5 @@
 # Makefile para el caso 1 de la LIBRERÍA
-# ©2015 Inma, Gerardo, Fidel, Juanma, Antonio
+# ©2021 Inma, Gerardo, Fidel, Juanma, Antonio
 #
 # --- Parte configurable ---
 #
@@ -13,26 +13,31 @@ NOMBREPRACTICA = P1
 
 # CADENADIR y FECHADIR son los directorios donde están respectivamente
 # los módulos objeto y cabeceras de Cadena y Fecha: cadena.{oh} y fecha.{oh}.
-CADENADIR= .
+CADENADIR = .
 FECHADIR = .
-FCTH = ../
+TESTSDIR = ../Tests-auto
+#DSL = ../dsl-comprobaciones
 # -fexceptions
-CXXFLAGS = -g -ansi -pedantic -Wall -std=c++11 ${INCLUDES}
+CXXFLAGS = -g -ansi -pedantic -Wall -std=c++17 -DP1 ${INCLUDES}
 # --- Fin parte configurable
 
-INCLUDES  = -I${CADENADIR} -I${FECHADIR} -I${FCTH}
-LOCALLIBS = fecha.cpp cadena.cpp
+INCLUDES  = -I${CADENADIR} -I${FECHADIR} -I${TESTSDIR} #-I${DSL}
+LOCALSRC = fecha.cpp cadena.cpp
 EXTLIBS   = -lcrypt
-LIBS      = ${LOCALLIBS} ${EXTLIBS}
-VPATH     = .:${CADENADIR}:${FECHADIR}
+LIBS      = ${LOCALSRC} ${EXTLIBS}
+VPATH     = .:${CADENADIR}:${FECHADIR}:${TESTSDIR}
 
-COMM_SRCS = $(LOCALLIBS)
-MAIN_SRCS = $(COMM_SRCS) test-consola.cpp
+COMM_SRCS = $(LOCALSRC)
+#MAIN_SRCS = $(COMM_SRCS) test-consola.cpp
+MAIN_SRCS = $(COMM_SRCS) test-fechacadena-consola.cpp
 MAIN_OBJS = $(MAIN_SRCS:.cpp=.o)
-MAIN_EXE  = test-caso4-consola
-TEST_SRCS = $(COMM_SRCS) test-auto.cpp
+#MAIN_EXE  = test-caso4-consola
+MAIN_EXE = test-fechacadena-consola
+#TEST_SRCS = $(COMM_SRCS) test-auto.cpp
+TEST_SRCS = $(COMM_SRCS) test-auto.cpp test-caso0-cadena-auto.cpp test-caso0-fecha-auto.cpp
 TEST_OBJS = $(TEST_SRCS:.cpp=.o)
-TEST_EXE  = test-p1_4-auto
+#TEST_EXE  = test-p1_4-auto
+TEST_EXE  = ../${NOMBREPRACTICA}/test-P1-auto
 
 NOMBRETAR = ../../${NOMBREALUMNO}.tar.gz
 NOMBREDIR = ${NOMBREALUMNO}/${NOMBREPRACTICA}
